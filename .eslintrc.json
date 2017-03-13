@@ -1,0 +1,7 @@
+{
+  "extends": [
+    "exaprint",
+    "exaprint/rules/lambda",
+    "exaprint/rules/es6"
+  ]
+}

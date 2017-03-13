@@ -1,0 +1,48 @@
+{
+  "name": "edot",
+  "version": "1.0.0",
+  "description": "Exaprint DevOps Toolbox",
+  "scripts": {
+    "ci": "bash bin/ci.sh",
+    "test": "nyc mocha --timeout 30000 --colors --recursive test/",
+    "deploy": "bash bin/deploy.sh",
+    "security": "nsp check",
+    "lint": "eslint -c eslintrc.json src test"
+  },
+  "main": "index.js",
+  "bin": {
+    "edot": "index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/exaprint/edot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/exaprint/edot/issues"
+  },
+  "homepage": "https://github.com/exaprint/edot#readme",
+  "keywords": [
+    "cli",
+    "node",
+    "js"
+  ],
+  "author": "L0gIn <basile@exagroup.biz>",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "commander": "^2.9.0",
+    "eslint": "3.12.0",
+    "eslint-config-exaprint": "latest",
+    "executive": "^1.1.8",
+    "ink-docstrap": "1.3.0",
+    "jenkins-mocha": "3.0.4",
+    "joi": "^10.2.2",
+    "jsdoc": "3.4.3",
+    "merge": "^1.2.0",
+    "nsp": "2.6.2",
+    "nyc": "^10.1.2",
+    "plato": "1.7.0",
+    "retry": "^0.10.1"
+  },
+  "devDependencies": {}
+}
