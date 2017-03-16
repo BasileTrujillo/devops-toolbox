@@ -37,6 +37,21 @@
           "plugin"
         ]
       }
+    },
+    "test": {
+      "mocha": [
+        {},
+        {
+          "useNyc": true
+        },
+        {
+          "function": "jenkins"
+        },
+        {
+          "function": "jenkins",
+          "useNyc": true
+        }
+      ]
     }
   },
 
