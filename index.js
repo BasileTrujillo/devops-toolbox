@@ -2,11 +2,41 @@
 
 'use strict';
 
-const Executor = require('./lib/executor');
+const program = require('commander');
+const chalk = require('chalk');
+const fs = require('fs-extra');
+const PluginLoader = require('./lib/plugin-loader');
+const appVersion = require('./package.json').version;
 
-const executor = new Executor({
-  debug: true,
-  verbose: true
-});
+let args = {};
 
-executor.execCmd('eslint');
+program.version(appVersion)
+  .description('DevOps Toolbox is a tool to help developers to run CI and CD commands.\n' +
+    '  <stackName>\t The stack name provided in config file.\n' +
+    '  <category>\t Plugin category (leave it empty to run all defined categories): lint, utest, doc, misc...\n' +
+    '  <func>\t Internal plugin function (depending on the plugin): deploy, remove...')
+  .arguments('<stackName> [category] [func]')
+  .action((stackName, category, func) => {
+    args = { stackName, category, func };
+  })
+  .option(
+    '-c, --config <config-file>',
+    'Set DOTbox config file. Defaults to "./.dotbox.json"',
+    './.dotbox.json'
+  )
+  .parse(process.argv);
+
+if (!args.stackName) {
+  console.error(chalk.red('No <stackName> provided.'));
+  program.help();
+} else {
+  fs.readJson(program.config, (err, config) => {
+    if (err) {
+      console.error(err);
+    } else {
+      const loader = new PluginLoader(program, config);
+
+      loader.execPlugins(args.stackName, args.category, args.func);
+    }
+  });
+}

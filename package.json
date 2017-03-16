@@ -1,26 +1,31 @@
 {
-  "name": "edot",
+  "name": "devops-toolbox",
   "version": "1.0.0",
-  "description": "Exaprint DevOps Toolbox",
+  "description": "DevOps Toolbox [DOTbox]",
   "scripts": {
-    "ci": "bash bin/ci.sh",
     "test": "nyc mocha --timeout 30000 --colors --recursive test/",
     "deploy": "bash bin/deploy.sh",
     "security": "nsp check",
-    "lint": "eslint -c eslintrc.json src test"
+    "lint": "dotbox ci lint",
+    "ci": "dotbox ci",
+    "start": "./index.js",
+    "lint-test": "xo index.js lib/* plugin/**/*",
+    "analysis": "dotbox ci analysis",
+    "doc": "dotbox ci doc"
   },
   "main": "index.js",
   "bin": {
-    "edot": "index.js"
+    "devops-toolbox": "index.js",
+    "dotbox": "index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/exaprint/edot.git"
+    "url": "git+https://github.com/exaprint/devops-toolbox.git"
   },
   "bugs": {
-    "url": "https://github.com/exaprint/edot/issues"
+    "url": "https://github.com/exaprint/devops-toolbox/issues"
   },
-  "homepage": "https://github.com/exaprint/edot#readme",
+  "homepage": "https://github.com/exaprint/devops-toolbox#readme",
   "keywords": [
     "cli",
     "node",
@@ -30,19 +35,27 @@
   "license": "MIT",
   "dependencies": {
     "chalk": "^1.1.3",
+    "co": "^4.6.0",
+    "co-prompt": "^1.0.0",
+    "command-exists": "^1.2.2",
     "commander": "^2.9.0",
+    "executive": "^1.1.9",
+    "fs-extra": "^2.0.0",
+    "joi": "^10.2.2",
+    "jshint": "^2.9.4",
+    "merge": "^1.2.0",
+    "recursive-readdir": "^2.1.1",
+    "retry": "^0.10.1",
+    "xo": "^0.17.1"
+  },
+  "devDependencies": {
     "eslint": "3.12.0",
     "eslint-config-exaprint": "latest",
-    "executive": "^1.1.8",
     "ink-docstrap": "1.3.0",
     "jenkins-mocha": "3.0.4",
-    "joi": "^10.2.2",
     "jsdoc": "3.4.3",
-    "merge": "^1.2.0",
     "nsp": "2.6.2",
     "nyc": "^10.1.2",
-    "plato": "1.7.0",
-    "retry": "^0.10.1"
-  },
-  "devDependencies": {}
+    "plato": "1.7.0"
+  }
 }

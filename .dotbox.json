@@ -1,0 +1,124 @@
+{
+  "verbose": true,
+
+  "ci": {
+    "async": false,
+    "lint": {
+      "eslint" : {
+        "blocking": false,
+        "verbose": true,
+        "checkstyleExport": true,
+        "targets": [
+          "index.js",
+          "lib/*",
+          "plugin/**/*"
+        ]
+      }
+    },
+    "analysis": {
+      "plato": {
+        "eslintrcPath": ".eslintrc.json",
+        "targets": [
+          "index.js",
+          "lib",
+          "plugin"
+        ]
+      }
+    },
+    "doc": {
+      "jsdoc": {
+        "configFilePath": "./jsdoc.conf.json",
+        "templatePath": "./node_modules/ink-docstrap/template",
+        "packagePath": "./package.json",
+        "readmePath": "./README.md",
+        "targets": [
+          "index.js",
+          "lib",
+          "plugin"
+        ]
+      }
+    }
+  },
+
+  "all": {
+
+    "async": false,
+
+    "lint": {
+
+      "jshint" : {
+        "function": null,
+        "blocking": false,
+        "verbose": true,
+        "checkstyleExport": false,
+        "checkstyleExportPath": "artifacts/jshint/jshint.xml",
+        "targets": [
+          "index.js",
+          "lib",
+          "plugin"
+        ],
+        "customArgs": []
+      },
+
+      "eslint" : {
+        "function": null,
+        "blocking": false,
+        "verbose": true,
+        "eslintrcPath": "",
+        "checkstyleExport": false,
+        "checkstyleExportPath": "artifacts/eslint/eslint.xml",
+        "targets": [
+          "index.js",
+          "lib/*",
+          "plugin/**/*"
+        ],
+        "customArgs": []
+      },
+
+      "xo" : {
+        "blocking": false,
+        "verbose": true,
+        "targets": [
+          "index.js",
+          "lib/*",
+          "plugin/**/*"
+        ],
+        "customArgs": []
+      }
+    },
+
+    "security": {
+      "nsp": {
+        "output": "default",
+        "customArgs": []
+      }
+    },
+
+    "analysis": {
+      "plato": {
+        "outputDir": "artifacts/plato",
+        "eslintrcPath": ".eslintrc.json",
+        "jshintrcPath": "",
+        "title": "",
+        "autoTitle": true,
+        "recurse": true,
+        "targets": [
+          "lib",
+          "plugin"
+        ],
+        "customArgs": []
+      }
+    }
+  },
+
+  "cd": {
+    "serverless": {
+      "apex": {},
+      "sls": {}
+    },
+    "aws": {
+      "s3": {},
+      "beanstalk": {}
+    }
+  }
+}
