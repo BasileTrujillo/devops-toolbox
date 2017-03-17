@@ -39,19 +39,10 @@
       }
     },
     "test": {
-      "mocha": [
-        {},
-        {
-          "useNyc": true
-        },
-        {
-          "function": "jenkins"
-        },
-        {
-          "function": "jenkins",
-          "useNyc": true
-        }
-      ]
+      "mocha":  {
+        "function": "jenkins",
+        "useNyc": true
+      }
     }
   },
 
@@ -123,6 +114,59 @@
         ],
         "customArgs": []
       }
+    },
+
+    "doc": {
+      "jsdoc": {
+        "configFilePath": "./jsdoc.conf.json",
+        "templatePath": "./node_modules/ink-docstrap/template",
+        "packagePath": "./package.json",
+        "readmePath": "./README.md",
+        "targets": [
+          "index.js",
+          "lib",
+          "plugin"
+        ]
+      }
+    },
+
+    "test": {
+      "mocha": [
+        {
+          "colors": true,
+          "recursive": true,
+          "timeout": 30000,
+          "targets": [],
+          "customArgs": []
+        },
+        {
+          "useNyc": true,
+          "colors": true,
+          "recursive": true,
+          "timeout": 30000,
+          "targets": [],
+          "customArgs": []
+        },
+        {
+          "function": "jenkins",
+          "cobertura": true,
+          "colors": true,
+          "recursive": true,
+          "timeout": 30000,
+          "targets": [],
+          "customArgs": []
+        },
+        {
+          "function": "jenkins",
+          "noCoverage": true,
+          "colors": true,
+          "recursive": true,
+          "timeout": 30000,
+          "targets": [],
+          "customArgs": [],
+          "useNyc": true
+        }
+      ]
     }
   },
 

@@ -8,8 +8,6 @@ class xo extends Plugin {
     super(options);
 
     this.optSchema = joi.object().keys({
-      checkstyleExport: joi.boolean().default(false),
-      checkstyleExportPath: joi.string().default('artifacts/eslint/eslint.xml'),
       targets: joi.array().default(['']),
       customArgs: joi.array().default(null)
     }).unknown();

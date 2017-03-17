@@ -83,7 +83,6 @@ class mocha extends Plugin {
     this.installCmd.push('npm i --save-dev ' + this.cmd);
     this.installCmd.push('npm i -g ' + this.cmd);
 
-
     if (pluginOptions.noCoverage) {
       args.push('--no-coverage');
     } else if (pluginOptions.cobertura) {

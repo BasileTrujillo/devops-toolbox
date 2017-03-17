@@ -11,6 +11,7 @@
     "start": "./index.js",
     "lint-test": "xo index.js lib/* plugin/**/*",
     "analysis": "dotbox ci analysis",
+    "utest": "dotbox ci test",
     "doc": "dotbox ci doc"
   },
   "main": "index.js",
