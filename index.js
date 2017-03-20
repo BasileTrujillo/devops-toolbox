@@ -12,11 +12,10 @@ let args = {};
 
 program.version(appVersion)
   .description('DevOps Toolbox is a tool to help developers to run CI and CD commands.\n' +
-    '  <stackName>\t The stack name provided in config file.\n' +
-    '  <category>\t Plugin category (leave it empty to run all defined categories): lint, utest, doc, misc...')
-  .arguments('<stackName> [category]')
-  .action((stackName, category) => {
-    args = { stackName, category };
+               '  <stackName>\t The stack name provided in config file.')
+  .arguments('<stackName>')
+  .action((stackName) => {
+    args = { stackName };
   })
   .option(
     '-c, --config <config-file>',
@@ -35,7 +34,11 @@ if (!args.stackName) {
     } else {
       const loader = new PluginLoader(program, config);
 
-      loader.execPlugins(args.stackName, args.category);
+      loader.loadAllPlugins().then(() => loader.execPlugins(args.stackName)).catch(error => {
+        console.error(error);
+
+        process.exitCode = 1;
+      });
     }
   });
 }

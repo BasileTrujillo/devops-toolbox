@@ -26,14 +26,13 @@ DevOps-Toolbox come without any embedded plugin.
 ## Usage
 
 ```
-  Usage: devops-toolbox [options] <stackName> [category]
+  Usage: devops-toolbox [options] <stackName>
   OR
-  Usage: dotbox [options] <stackName> [category]
+  Usage: dotbox [options] <stackName>
 
   DevOps Toolbox is a tool to help developers to run CI and CD commands.
   <stackName>    The stack name provided in config file.
-  <category>     Plugin category (leave it empty to run all defined categories): lint, utest, doc, misc...
-
+  
   Options:
 
     -h, --help                  output usage information
@@ -52,18 +51,24 @@ You can have multiple config file and specified one by one using the `--config` 
 
 ### Stacks
 
-A Stack is list of categorized plugins to execute.
-You can execute defined stack by passing the stack name as first argument.
+A Stack is list of plugins to execute.
+You can execute any defined stack by passing the stack name as first argument.
+
+Plugins must be place in a `tasks` property.
 
 For exemple, if your `.dotbox.json` contains:
 
 ```js
 {
   "ci": { // Stack Name
-    "lint": { // Category Name
-      "eslint" : {}, // Plugin Name
-      "jslint" : {} // Plugin Name
-    }
+   "tasks": [
+     {
+      "plugin" : "eslint"
+     },
+     {
+      "plugin" : "jsdoc"
+     }     
+   ]
   }
 }
 ```
@@ -83,111 +88,86 @@ By default dotbox will execute all plugins in order synchronously, but if you wa
 {
   "ci": {
     "async": true,
-    "lint": {
-      "eslint" : {},
-      "jslint" : {}
-    }
+    "tasks": [
+      {
+        "plugin" : "eslint"
+      },
+      {
+        "plugin" : "jsdoc"
+      }     
+    ]
   }
 }
 ```
 
 You can define as many Stack as you want:
 
-```js
+```json
 {
-  // First stack
-  "lintAndTests": { 
+  "FirstStack": {
     "async": false,
-    "lint": { 
-      "eslint" : {}, 
-      "jslint" : {}
-    },
-    "test": {
-      "mocha": {}
-    }
+    "tasks": [
+      {
+        "plugin" : "eslint"
+      },
+      {
+        "plugin" : "mocha"
+      }     
+    ]
   },
-  
-  // Second stack
-  "docAndAnalysis": {
+
+  "SecondStack": {
     "async": true,
-    "doc": {
-      "jsdoc": {}
-    },
-    "analysis": { 
-      "plato" : {}
-    }   
-  }  
-}
-```
-
-### Category and Plugin
-
-Current list of category (no third part at the moment but coming soon):
-* analysis : Source code visualization, static analysis, and complexity tools
-* doc : Documentation generators
-* lint : Linters
-* security : Security tools
-* test : Test suite tools
-
-A plugin must be define in a category:
-```js
-{
-  "myStack": {       // Stack Name
-    "lint": {        // Categoy Name
-      "eslint" : {}, // Plugin Name
-      "jslint" : {}  // Plugin Name
-    }
+    "tasks": [
+      {
+        "plugin" : "jsdoc"
+      },
+      {
+        "plugin" : "plato"
+      }
+    ]
   }
 }
 ```
 
-You can specify a category in CLI to only execute one category of plugins:
-```bash
-  $ dotbox myStack lint
+### Plugins
+
+A plugin is an object containing at least the plugin name inside a `plugin` property.
+```json
+{
+  "ci": {
+   "tasks": [
+     {
+      "plugin" : "eslint"
+     }    
+   ]
+  }
+}
 ```
 
-A plugin is an object with defined options and all plugins have common options :
+A plugin is an object with defined properties and all plugins have common properties :
 
-* blocking : (Default to `true`) If set to false, dotbox will not fail the global execution and just emit a warning in case of failure. If set to `true` and stack `async` (the default) dotbox will stop the process at the first plugin failure.
-* verbose : (Default to `false`) Define verbosity. (This will get some improvements soon)
-* function : (Default to `default`) Define witch plugin function to execute. A plugin function is define by a plugin itself.
+* `plugin` : (Required) The plugin name
+* `function` : (Default to `default`) Define witch plugin function to execute. A plugin function is define by a plugin itself.
+* `blocking` : (Default to `true`) If set to false, dotbox will not fail the global execution and just emit a warning in case of failure. If set to `true` and stack `async` (the default) dotbox will stop the process at the first plugin failure.
+* `verbose` : (Default to `false`) Define verbosity. (This will get some improvements soon)
 
 For example, if I want a stack with a non blocking linter and blocking tester: 
 ```json
 {
   "myStack": {
-    "lint": {
-      "eslint" : {
+    "tasks": [
+      {
+        "plugin" : "eslint",
         "blocking": false
+      },
+      {
+        "plugin" : "mocha"
       }
-    },
-    "test": {
-      "mocha": {}
-    }
+    ]
   }
 }
 ```
-
-Now if you want to execute a same plugin with multiple configurations in a category inside a stack, just switch to an array of object:
-```json
-{
-  "myStack": {
-    "async": true,
-    "lint": {
-      "eslint" : [
-        {
-          "blocking": false
-        },
-        {
-          "blocking": false,
-          "checkstyleExport": true
-        }
-      ]
-    }
-  }
-}
-```
-This stack will execute asynchronously two times the eslint plugin with a standard eslint execution that displays all the result in the terminal and a non verbose execution that export the result in an XML file.
 
 To learn more about plugin options and functions step out to the Plugin API Reference.
 
@@ -195,45 +175,57 @@ To learn more about plugin options and functions step out to the Plugin API Refe
 
 ### List of plugins by category
 
-#### --- analysis ---
+#### --- Analysis ---
 
 | Plugins       | Description   | Languages| Link |
 | ------------- |-------------| -----| -----|
-| plato      | JavaScript source code visualization, static analysis, and complexity tool | Javascript | [Github Project](https://github.com/es-analysis/plato)|
+| `plato`      | JavaScript source code visualization, static analysis, and complexity tool | Javascript | [Github Project](https://github.com/es-analysis/plato)|
 
-#### --- doc ---
-
-| Plugins       | Description   | Languages| Link |
-| ------------- |-------------| -----| -----|
-| jsdoc      | API documentation generator for JavaScript, similar to Javadoc or phpDocumentor | Javascript | [usejsdoc.org](http://usejsdoc.org/)|
-
-#### --- lint ---
+#### --- Documentation ---
 
 | Plugins       | Description   | Languages| Link |
 | ------------- |-------------| -----| -----|
-| eslint      | The pluggable linting utility for JavaScript and JSX | Javascript | [eslint.org](http://eslint.org/)|
-| jshint      | JSHint is a tool that helps to detect errors and potential problems in your JavaScript code | Javascript | [jshint.com](http://jshint.com/)|
-| xo          | JavaScript happiness style linter based on EsLint | Javascript | [Github Project](https://github.com/sindresorhus/xo)|
+| `jsdoc`      | API documentation generator for JavaScript, similar to Javadoc or phpDocumentor | Javascript | [usejsdoc.org](http://usejsdoc.org/)|
 
-#### --- security ---
+#### --- Linting ---
 
 | Plugins       | Description   | Languages| Link |
 | ------------- |-------------| -----| -----|
-| nsp      | nsp is the main command line interface to the Node Security Platform. It allows for auditing a package.json or npm-shrinkwrap.json file against the API. | Javascript, NodeJS | [Github Project](https://github.com/nodesecurity/nsp)|
+| `eslint`     | The pluggable linting utility for JavaScript and JSX | Javascript | [eslint.org](http://eslint.org/)|
+| `jshint`      | JSHint is a tool that helps to detect errors and potential problems in your JavaScript code | Javascript | [jshint.com](http://jshint.com/)|
+| `xo`          | JavaScript happiness style linter based on EsLint | Javascript | [Github Project](https://github.com/sindresorhus/xo)|
 
-#### --- test ---
+#### --- Security ---
 
 | Plugins       | Description   | Languages| Link |
 | ------------- |-------------| -----| -----|
-| mocha      | Mocha is a feature-rich JavaScript test framework running on Node.js and in the browser, making asynchronous testing simple and fun | Javascript, NodeJS | [mochajs.org](https://mochajs.org/)|
+| `nsp`      | nsp is the main command line interface to the Node Security Platform. It allows for auditing a package.json or npm-shrinkwrap.json file against the API. | Javascript, NodeJS | [Github Project](https://github.com/nodesecurity/nsp)|
+
+#### --- Unit Tests ---
+
+| Plugins       | Description   | Languages| Link |
+| ------------- |-------------| -----| -----|
+| `mocha`      | Mocha is a feature-rich JavaScript test framework running on Node.js and in the browser, making asynchronous testing simple and fun | Javascript, NodeJS | [mochajs.org](https://mochajs.org/)|
+
+#### --- Serverless Deployment ---
+
+| Plugins       | Description   | Languages| Link |
+| ------------- |-------------| -----| -----|
+| `sls`      | The Serverless Framework allows you to deploy auto-scaling, pay-per-execution, event-driven functions to any cloud. | Javascript, NodeJS | [serverless.com](https://serverless.com/)|
+
+#### --- Misc & tools ---
+
+| Plugins       | Description   | Languages| Link |
+| ------------- |-------------| -----| -----|
+| `custom-cmd`      | A simple plugin to run any shell function | Shell | |
+| `symlink-resolver`      | A plugin able to resolve symlinks (copy the true file at the symlink's place) and restore them | Shell | |
 
 
 ### Plugin Reference
 
 #### Plato
 
-* Plugin name: plato
-* Category name: analysis
+* Plugin name: `plato`
 * Description: JavaScript source code visualization, static analysis, and complexity tool
 * Requirements: Install Plato using NPM
 * Supported languages: Javascript, NodeJs
@@ -243,9 +235,10 @@ Options available (with there default values):
 ```js
 {
   "MyStack": {
-  
-    "analysis": {
-      "plato": {
+    "tasks": [
+      {
+        "plugin": "plato",                // [Required] Plugin Name
+
         "blocking": true,                 // Whether the execution is blocking or not
         "outputDir": "artifacts/plato",   // The output directory
         "eslintrcPath": "",               // Specify a eslintrc file for ESLint linting
@@ -256,16 +249,14 @@ Options available (with there default values):
         "targets": [],                    // List of target files/directories to process
         "customArgs": []                  // Custom list of argument (one argument per row)
       }
-    }
-    
+    ]
   }
 }
 ```
 
 #### JsDoc
 
-* Plugin name: jsdoc
-* Category name: doc
+* Plugin name: `jsdoc`
 * Description: API documentation generator for JavaScript, similar to Javadoc or phpDocumentor
 * Requirements: Install JsDoc using NPM
 * Supported languages: Javascript, NodeJs
@@ -275,9 +266,10 @@ Options available (with there default values):
 ```js
 {
   "MyStack": {
+    "tasks": [
+      {
+        "plugin": "jsdoc",                // [Required] Plugin Name,
   
-    "doc": {
-      "jsdoc": {
         "blocking": true,                 // Whether the execution is blocking or not
         "outputDir": "artifacts/jsdoc",   // The path to the output folder for the generated documentation
         "configFilePath": "",             // The path to a JSDoc configuration file
@@ -287,16 +279,14 @@ Options available (with there default values):
         "targets": [],                    // List of target files/directories to process       
         "customArgs": []                  // Custom list of argument (one argument per row)
       }
-    }
-    
+    ]
   }
 }
 ```
 
 #### EsLint
 
-* Plugin name: eslint
-* Category name: lint
+* Plugin name: `eslint`
 * Description: The pluggable linting utility for JavaScript and JSX
 * Requirements: Install EsLint using NPM
 * Supported languages: Javascript, NodeJs
@@ -306,9 +296,10 @@ Options available (with there default values):
 ```js
 {
   "MyStack": {
-  
-    "lint": {
-      "eslint": {
+    "tasks": [
+      {
+        "plugin": "eslint",               // [Required] Plugin Name
+
         "blocking": true,                 // Whether the execution is blocking or not
         "eslintrcPath": "",               // Use configuration from this file or shareable config
         "checkstyleExport": false,        // Activate or not the checkstyle export in [checkstyleExportPath]
@@ -316,16 +307,14 @@ Options available (with there default values):
         "targets": ['.'],                    // List of target files/directories to process       
         "customArgs": []                  // Custom list of argument (one argument per row)        
       }
-    }
-    
+    ]
   }
 }
 ```
 
 #### JsHint
 
-* Plugin name: jshint
-* Category name: lint
+* Plugin name: `jshint`
 * Description: JSHint is a tool that helps to detect errors and potential problems in your JavaScript code
 * Requirements: Install JsHint using NPM
 * Supported languages: Javascript, NodeJs
@@ -335,25 +324,24 @@ Options available (with there default values):
 ```js
 {
   "MyStack": {
-  
-    "lint": {
-      "jshint": {
+    "tasks": [
+      {
+        "plugin": "jshint",               // [Required] Plugin Name
+
         "blocking": true,                 // Whether the execution is blocking or not
         "checkstyleExport": false,        // Activate or not the checkstyle export in [checkstyleExportPath]
         "checkstyleExportPath": "artifacts/jshint/jshint.xml", // Checkstyle export file
-        "targets": ['.'],                    // List of target files/directories to process       
+        "targets": ['.'],                 // List of target files/directories to process       
         "customArgs": []                  // Custom list of argument (one argument per row)        
       }
-    }
-    
+    ]
   }
 }
 ```
 
 #### XO
 
-* Plugin name: xo
-* Category name: lint
+* Plugin name: `xo`
 * Description: JavaScript happiness style linter based on EsLint
 * Requirements: Install XO using NPM
 * Supported languages: Javascript, NodeJs
@@ -363,23 +351,22 @@ Options available (with there default values):
 ```js
 {
   "MyStack": {
-  
-    "lint": {
-      "xo": {
+    "tasks": [
+      {
+        "plugin": "xo",                   // [Required] Plugin Name
+
         "blocking": true,                 // Whether the execution is blocking or not
         "targets": [],                    // List of target files/directories to process
         "customArgs": []                  // Custom list of argument (one argument per row)        
       }
-    }
-    
+    ]
   }
 }
 ```
 
 #### NSP
 
-* Plugin name: nsp
-* Category name: security
+* Plugin name: `nsp`
 * Description: nsp is the main command line interface to the Node Security Platform. It allows for auditing a package.json or npm-shrinkwrap.json file against the API.
 * Requirements: Install NSP using NPM
 * Supported languages: Javascript, NodeJs
@@ -389,23 +376,22 @@ Options available (with there default values):
 ```js
 {
   "MyStack": {
-  
-    "security": {
-      "nsp": {
-        "blocking": true,                 // Whether the execution is blocking or not
-        "output": "default",              // Adjust the client outputs (default, summary, json, codeclimate, none)
-        "customArgs": []                  // Custom list of argument (one argument per row)        
+    "tasks": [
+      {
+        "plugin": "nsp",      // [Required] Plugin Name
+
+        "blocking": true,     // Whether the execution is blocking or not
+        "output": "default",  // Adjust the client outputs (default, summary, json, codeclimate, none)
+        "customArgs": []      // Custom list of argument (one argument per row)        
       }
-    }
-    
+    ]
   }
 }
 ```
 
 #### MochaJS
 
-* Plugin name: `nsp`
-* Category name: `security`
+* Plugin name: `mocha`
 * Description: Mocha is a feature-rich JavaScript test framework running on Node.js and in the browser, making asynchronous testing simple and fun.
 * Supported languages: Javascript, NodeJs
 * Project links: [https://github.com/nodesecurity/nsp](https://github.com/nodesecurity/nsp)
@@ -418,10 +404,11 @@ Options available (with there default values):
 Options available for `default` function (with there default values):
 ```js
 {
-  "MyStack": {
-  
-    "test": {
-      "mocha": {
+  "MyStack": {  
+    "tasks": [
+      {
+        "plugin": "mocha",                // [Required] Plugin Name
+
         "blocking": true,                 // Whether the execution is blocking or not
         "useNyc": false,                  // Execute mocha over NYC (require nyc to be installed)
         "colors": true,                   // Force enabling of colors
@@ -430,8 +417,7 @@ Options available for `default` function (with there default values):
         "targets": [],                    // List of target files/directories to process                
         "customArgs": []                  // Custom list of argument (one argument per row)        
       }
-    }
-    
+    ]
   }
 }
 ```
@@ -439,23 +425,67 @@ Options available for `default` function (with there default values):
 Options available for `jenkins` function (with there default values):
 ```js
 {
-  "MyStack": {
-  
-    "test": {
-      "mocha": {
+  "MyStack": {  
+    "tasks": [
+      {
+        "plugin": "mocha",                // [Required] Plugin Name
+        "function": "jenkins",            // Plugin's function Name
+
         "blocking": true,                 // Whether the execution is blocking or not
         "useNyc": false,                  // Execute mocha over NYC (require nyc to be installed)
         "colors": true,                   // Force enabling of colors
         "recursive": true,                // Include sub directories
         "timeout": 0,                     // Set test-case timeout in milliseconds [0 | undefined = 2000]
         "targets": [],                    // List of target files/directories to process                
-        "customArgs": []                  // Custom list of argument (one argument per row)
+        "customArgs": [],                 // Custom list of argument (one argument per row)
         
         "cobertura": true,                // To have nyc use the cobertura reporter
         "noCoverage": false              // Turn coverage reporting off entirely
       }
-    }
-    
+    ]
   }
 }
 ```
+
+#### SLS (Serverless Framework)
+
+* Plugin name: `sls`
+* Description: The Serverless Framework allows you to deploy auto-scaling, pay-per-execution, event-driven functions to any cloud.
+* Requirements: Install Serverless Framework using NPM
+* Supported languages: Javascript, NodeJs
+* Project links: [serverless.com](https://serverless.com) 
+
+Options available (with there default values):
+```js
+{
+  "MyStack": {
+    "tasks": [
+      {
+        "plugin": "sls",                // [Required] Plugin Name
+        "slsFunction": "deploy",        // [Required] Serverless function to call (related to the SLS CLI API Reference)
+
+        "blocking": true,               // Whether the execution is blocking or not
+        "quiet": false,                 // If set to true, the --verbose flag will not be used
+        "stage": null,                  // The stage in your service that you want to deploy to
+        "region": null,                 // The region in that stage that you want to deploy to
+        "removeDevDependencies": true,  // Auto remove NPM Dev Dependencies before running the SLS function
+        "restoreDevDependencies": false,// Auto restore NPM Dev Dependencies after running the SLS function
+        "resolveSymlinks": [],          // Resolve symlinks by copying true files as replacement before running the SLS function
+        "restoreSymlinks": true,        // Restore symlinks after running the SLS function
+        "customArgs": []                // Custom list of argument (one argument per row)
+      }
+    ]
+  }
+}
+```
+
+
+## Roadmap
+
+* Improve Verbosity
+* Add third part plugin compatibility
+* Use Dotbox plugin in a node plugin
+* Add more and more plugins:
+  * Apex
+  * S3
+  * Elastic Beanstalk

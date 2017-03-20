@@ -3,15 +3,11 @@
   "version": "1.0.0",
   "description": "DevOps Toolbox [DOTbox]",
   "scripts": {
-    "test": "nyc mocha --timeout 30000 --colors --recursive test/",
+    "test": "dotbox ci test",
     "deploy": "bash bin/deploy.sh",
-    "security": "nsp check",
+    "security": "dotbox ci security",
     "lint": "dotbox ci lint",
     "ci": "dotbox ci",
-    "start": "./index.js",
-    "lint-test": "xo index.js lib/* plugin/**/*",
-    "analysis": "dotbox ci analysis",
-    "utest": "dotbox ci test",
     "doc": "dotbox ci doc"
   },
   "main": "index.js",
@@ -36,18 +32,13 @@
   "license": "MIT",
   "dependencies": {
     "chalk": "^1.1.3",
-    "co": "^4.6.0",
-    "co-prompt": "^1.0.0",
     "command-exists": "^1.2.2",
     "commander": "^2.9.0",
-    "executive": "^1.1.9",
     "fs-extra": "^2.0.0",
     "joi": "^10.2.2",
-    "jshint": "^2.9.4",
     "merge": "^1.2.0",
     "recursive-readdir": "^2.1.1",
-    "retry": "^0.10.1",
-    "xo": "^0.17.1"
+    "retry": "^0.10.1"
   },
   "devDependencies": {
     "eslint": "3.12.0",
@@ -57,6 +48,7 @@
     "jsdoc": "3.4.3",
     "nsp": "2.6.2",
     "nyc": "^10.1.2",
-    "plato": "1.7.0"
+    "plato": "1.7.0",
+    "xo": "^0.17.1"
   }
 }
