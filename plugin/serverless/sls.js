@@ -1,8 +1,6 @@
 'use strict';
 
 const joi = require('joi');
-const chalk = require('chalk');
-const fs = require('fs-extra');
 const Plugin = require('../../lib/plugin');
 const SymlinkResolver = require('../misc/symlink-resolver');
 
@@ -44,6 +42,11 @@ class sls extends Plugin {
     this.description = 'The Serverless Framework';
   }
 
+  /**
+   * Run the default plugin function
+   *
+   * @return {Promise} Return a Promise of the execution
+   */
   run_default() {
     const pluginOptions = this.validateOptions();
     const args = this.fillDefautlArgs(pluginOptions);
@@ -85,11 +88,17 @@ class sls extends Plugin {
     });
   }
 
-  fillDefautlArgs(pluginOptions) {
+  /**
+   * Fill default command's arguments
+   *
+   * @param {Object} pluginOptions Plugin's Options
+   * @return {Array} List of arguments
+   */
+  static fillDefautlArgs(pluginOptions) {
     let args = [];
 
     if (pluginOptions.slsFunction) {
-      args.push(pluginOptions.slsFunction);
+      args = args.concat(pluginOptions.slsFunction.split(' '));
     }
 
     if (pluginOptions.quiet === false) {

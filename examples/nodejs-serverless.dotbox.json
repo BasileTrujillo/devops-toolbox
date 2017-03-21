@@ -1,0 +1,114 @@
+{
+  "verbose": true,
+
+  "ci": {
+    "async": true,
+    "tasks": [
+      {
+        "plugin": "nsp",
+
+        "blocking": false
+      },
+      {
+        "plugin": "eslint",
+
+        "blocking": false,
+        "checkstyleExport": true
+      },
+      {
+        "plugin": "plato",
+
+        "blocking": false,
+        "eslintrcPath": ".eslintrc.json",
+        "targets": [
+          "index.js",
+          "lib"
+        ]
+      },
+      {
+        "plugin": "jsdoc",
+
+        "blocking": false,
+        "configFilePath": "./jsdoc.conf.json",
+        "packagePath": "./package.json",
+        "readmePath": "./README.md",
+        "targets": [
+          "index.js",
+          "lib"
+        ]
+      },
+      {
+        "plugin": "mocha",
+        "function": "jenkins"
+      }
+    ]
+  },
+
+  "test": {
+    "tasks": [
+      {
+        "plugin": "mocha",
+        "useNyc": true
+      }
+    ]
+  },
+
+  "lint": {
+    "tasks": [
+      {
+        "plugin": "eslint"
+      }
+    ]
+  },
+
+  "deploy": {
+    "async": false,
+    "tasks": [
+      {
+        "plugin": "sls",
+        "slsFunction": "deploy",
+        "stage": "dev",
+        "removeDevDependencies": true,
+        "restoreDevDependencies": true,
+        "resolveSymlinks": [
+          "config.json"
+        ],
+        "restoreSymlinks": true
+      }
+    ]
+  },
+
+  "deploy-function": {
+    "async": false,
+    "tasks": [
+      {
+        "plugin": "sls",
+        "slsFunction": "deploy function",
+        "stage": "dev",
+        "removeDevDependencies": true,
+        "restoreDevDependencies": true,
+        "resolveSymlinks": [
+          "config.json"
+        ],
+        "restoreSymlinks": true,
+        "customArgs": [
+          "-f",
+          "myFunction"
+        ]
+      }
+    ]
+  },
+
+  "undeploy": {
+    "async": false,
+    "tasks": [
+      {
+        "plugin": "sls",
+        "slsFunction": "remove",
+        "stage": "dev",
+        "removeDevDependencies": false,
+        "restoreDevDependencies": false
+      }
+    ]
+  }
+}

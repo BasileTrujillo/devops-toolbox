@@ -22,6 +22,12 @@ class mocha extends Plugin {
     this.description = 'Mocha JavaScript test framework';
   }
 
+  /**
+   * Run the default plugin function
+   * Execute "mocha" command
+   *
+   * @return {Promise} Return a Promise of the execution
+   */
   run_default() {
     const pluginOptions = this.validateOptions();
 
@@ -34,6 +40,12 @@ class mocha extends Plugin {
     return this.execExternalCmd(this.cmd, args, this.options);
   }
 
+  /**
+   * Fill default command's arguments
+   *
+   * @param {Object} pluginOptions Plugin's Options
+   * @return {Array} List of arguments
+   */
   fillDefautlArgs(pluginOptions) {
     let args = [];
 
@@ -66,6 +78,12 @@ class mocha extends Plugin {
     return args;
   }
 
+  /**
+   * Run the jenkins plugin function
+   * Execute "jenkins-mocha" command
+   *
+   * @return {Promise} Return a Promise of the execution
+   */
   run_jenkins() {
     this.optSchema = joi.object().keys(
       merge(this.defaultOptsSchemaKeys, {

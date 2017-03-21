@@ -17,6 +17,13 @@ class SymlinkResolver extends Plugin {
     this.installCmd.push('No installation command provided.');
   }
 
+  /**
+   * Run the default plugin function
+   * Perform a symlink resolution (copy the original file at the link's place)
+   * and backup symlink for potential restoration
+   *
+   * @return {Promise} Return a Promise of the execution
+   */
   run_default() {
     const pluginOptions = this.validateOptions();
 
@@ -38,6 +45,21 @@ class SymlinkResolver extends Plugin {
     }
   }
 
+  /**
+   * This function is just an alias to run the default plugin function
+   *
+   * @return {Promise} Return a Promise of the execution
+   */
+  run_resolve() {
+    return this.run_default();
+  }
+
+  /**
+   * Run the restore plugin function
+   * Restore symlinks if backup files exists (backup files are created by default/resolve function.
+   *
+   * @return {Promise} Return a Promise of the execution
+   */
   run_restore() {
     const pluginOptions = this.validateOptions();
 
@@ -59,6 +81,13 @@ class SymlinkResolver extends Plugin {
     }
   }
 
+  /**
+   * Perform a symlink resolution (copy the original file at the link's place)
+   * and backup symlink for potential restoration
+   *
+   * @param {String} link Path to symlink
+   * @return {Promise} Return a Promise of the execution
+   */
   resolveSymlink(link) {
     return new Promise((resolve, reject) => {
       const response = {
@@ -91,6 +120,12 @@ class SymlinkResolver extends Plugin {
     });
   }
 
+  /**
+   * Restore symlinks if backup files exists (backup files are created by default/resolve function.
+   *
+   * @param {String} link Path to symlink
+   * @return {Promise} Return a Promise of the execution
+   */
   restoreSymlink(link) {
     return new Promise((resolve, reject) => {
       const response = {

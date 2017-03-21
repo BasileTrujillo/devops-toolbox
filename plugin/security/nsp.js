@@ -22,6 +22,11 @@ class nsp extends Plugin {
     this.description = 'Dependencies Security Check using NSP';
   }
 
+  /**
+   * Run the default plugin function
+   *
+   * @return {Promise} Return a Promise of the execution
+   */
   run_default() {
     const pluginOptions = this.validateOptions();
 

@@ -15,6 +15,11 @@ class custom_cmd extends Plugin {
     this.description = 'Custom command';
   }
 
+  /**
+   * Run the default plugin function
+   *
+   * @return {Promise} Return a Promise of the execution
+   */
   run_default() {
     const pluginOptions = this.validateOptions();
 

@@ -23,6 +23,11 @@ class plato extends Plugin {
     this.description = 'Visualize JavaScript source complexity with plato.';
   }
 
+  /**
+   * Run the default plugin function
+   *
+   * @return {Promise} Return a Promise of the execution
+   */
   run_default() {
     const pluginOptions = this.validateOptions();
 

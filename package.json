@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "description": "DevOps Toolbox [DOTbox]",
   "scripts": {
-    "test": "dotbox ci test",
-    "deploy": "bash bin/deploy.sh",
-    "security": "dotbox ci security",
-    "lint": "dotbox ci lint",
+    "test": "dotbox test",
+    "lint": "dotbox lint",
     "ci": "dotbox ci",
-    "doc": "dotbox ci doc"
+    "deploy": "dotbox deploy",
+    "deploy-function": "dotbox deploy-function",
+    "undeploy": "dotbox undeploy"
   },
   "main": "index.js",
   "bin": {
@@ -41,6 +41,7 @@
     "retry": "^0.10.1"
   },
   "devDependencies": {
+    "chai": "3.5.0",
     "eslint": "3.12.0",
     "eslint-config-exaprint": "latest",
     "ink-docstrap": "1.3.0",
@@ -48,7 +49,6 @@
     "jsdoc": "3.4.3",
     "nsp": "2.6.2",
     "nyc": "^10.1.2",
-    "plato": "1.7.0",
-    "xo": "^0.17.1"
+    "plato": "1.7.0"
   }
 }

@@ -2,8 +2,13 @@
   "verbose": true,
 
   "ci": {
-    "async": false,
+    "async": true,
     "tasks": [
+      {
+        "plugin": "nsp",
+
+        "blocking": false
+      },
       {
         "plugin": "eslint",
 
@@ -18,6 +23,7 @@
       {
         "plugin": "plato",
 
+        "blocking": false,
         "eslintrcPath": ".eslintrc.json",
         "targets": [
           "index.js",
@@ -28,6 +34,7 @@
       {
         "plugin": "jsdoc",
 
+        "blocking": false,
         "configFilePath": "./jsdoc.conf.json",
         "templatePath": "./node_modules/ink-docstrap/template",
         "packagePath": "./package.json",
@@ -40,53 +47,25 @@
       },
       {
         "plugin": "mocha",
-        "function": "jenkins",
+        "function": "jenkins"
+      }
+    ]
+  },
 
+  "test": {
+    "tasks": [
+      {
+        "plugin": "mocha",
         "useNyc": true
       }
     ]
   },
 
-  "deploy": {
-    "async": false,
+  "lint": {
     "tasks": [
       {
-        "plugin": "sls",
-        "slsFunction": "deploy",
-        "removeDevDependencies": true,
-        "restoreDevDependencies": true,
-        "resolveSymlinks": [
-          "config.json"
-        ],
-        "restoreSymlinks": true
-      }
-    ]
-  },
-
-  "resolve": {
-    "tasks": [
-      {
-        "plugin": "symlink-resolver",
-
-        "links": [
-          "config.json"
-        ],
-        "keepOrig": true
-      }
-    ]
-  },
-
-  "restore": {
-    "tasks": [
-      {
-        "plugin": "symlink-resolver",
-        "function": "restore",
-
-        "links": [
-          "config.json"
-        ]
+        "plugin": "eslint"
       }
     ]
   }
-
 }

@@ -130,9 +130,27 @@ You can define as many Stack as you want:
 }
 ```
 
+## Run with `npm` / `yarn`
+When you got dotbox fully configured, you now can add some script like the following to you `package.json`:
+
+```json
+{
+  "scripts": {
+    "test": "dotbox test",
+    "lint": "dotbox lint",
+    "ci": "dotbox ci",
+    "deploy": "dotbox deploy",
+    "deploy-function": "dotbox deploy-function",
+    "undeploy": "dotbox undeploy"
+  }
+}
+```
+
+
 ### Plugins
 
 A plugin is an object containing at least the plugin name inside a `plugin` property.
+
 ```json
 {
   "ci": {
@@ -153,6 +171,7 @@ A plugin is an object with defined properties and all plugins have common proper
 * `verbose` : (Default to `false`) Define verbosity. (This will get some improvements soon)
 
 For example, if I want a stack with a non blocking linter and blocking tester: 
+
 ```json
 {
   "myStack": {
@@ -239,7 +258,6 @@ Options available (with there default values):
       {
         "plugin": "plato",                // [Required] Plugin Name
 
-        "blocking": true,                 // Whether the execution is blocking or not
         "outputDir": "artifacts/plato",   // The output directory
         "eslintrcPath": "",               // Specify a eslintrc file for ESLint linting
         "jshintrcPath": "",               // Specify a jshintrc file for JSHint linting
@@ -270,7 +288,6 @@ Options available (with there default values):
       {
         "plugin": "jsdoc",                // [Required] Plugin Name,
   
-        "blocking": true,                 // Whether the execution is blocking or not
         "outputDir": "artifacts/jsdoc",   // The path to the output folder for the generated documentation
         "configFilePath": "",             // The path to a JSDoc configuration file
         "templatePath": "",               // The path to the template to use for generating output
@@ -300,7 +317,6 @@ Options available (with there default values):
       {
         "plugin": "eslint",               // [Required] Plugin Name
 
-        "blocking": true,                 // Whether the execution is blocking or not
         "eslintrcPath": "",               // Use configuration from this file or shareable config
         "checkstyleExport": false,        // Activate or not the checkstyle export in [checkstyleExportPath]
         "checkstyleExportPath": "artifacts/eslint/eslint.xml", // Checkstyle export file
@@ -328,7 +344,6 @@ Options available (with there default values):
       {
         "plugin": "jshint",               // [Required] Plugin Name
 
-        "blocking": true,                 // Whether the execution is blocking or not
         "checkstyleExport": false,        // Activate or not the checkstyle export in [checkstyleExportPath]
         "checkstyleExportPath": "artifacts/jshint/jshint.xml", // Checkstyle export file
         "targets": ['.'],                 // List of target files/directories to process       
@@ -355,7 +370,6 @@ Options available (with there default values):
       {
         "plugin": "xo",                   // [Required] Plugin Name
 
-        "blocking": true,                 // Whether the execution is blocking or not
         "targets": [],                    // List of target files/directories to process
         "customArgs": []                  // Custom list of argument (one argument per row)        
       }
@@ -380,7 +394,6 @@ Options available (with there default values):
       {
         "plugin": "nsp",      // [Required] Plugin Name
 
-        "blocking": true,     // Whether the execution is blocking or not
         "output": "default",  // Adjust the client outputs (default, summary, json, codeclimate, none)
         "customArgs": []      // Custom list of argument (one argument per row)        
       }
@@ -409,7 +422,6 @@ Options available for `default` function (with there default values):
       {
         "plugin": "mocha",                // [Required] Plugin Name
 
-        "blocking": true,                 // Whether the execution is blocking or not
         "useNyc": false,                  // Execute mocha over NYC (require nyc to be installed)
         "colors": true,                   // Force enabling of colors
         "recursive": true,                // Include sub directories
@@ -431,7 +443,6 @@ Options available for `jenkins` function (with there default values):
         "plugin": "mocha",                // [Required] Plugin Name
         "function": "jenkins",            // Plugin's function Name
 
-        "blocking": true,                 // Whether the execution is blocking or not
         "useNyc": false,                  // Execute mocha over NYC (require nyc to be installed)
         "colors": true,                   // Force enabling of colors
         "recursive": true,                // Include sub directories
@@ -464,14 +475,13 @@ Options available (with there default values):
         "plugin": "sls",                // [Required] Plugin Name
         "slsFunction": "deploy",        // [Required] Serverless function to call (related to the SLS CLI API Reference)
 
-        "blocking": true,               // Whether the execution is blocking or not
         "quiet": false,                 // If set to true, the --verbose flag will not be used
         "stage": null,                  // The stage in your service that you want to deploy to
         "region": null,                 // The region in that stage that you want to deploy to
         "removeDevDependencies": true,  // Auto remove NPM Dev Dependencies before running the SLS function
         "restoreDevDependencies": false,// Auto restore NPM Dev Dependencies after running the SLS function
         "resolveSymlinks": [],          // Resolve symlinks by copying true files as replacement before running the SLS function
-        "restoreSymlinks": true,        // Restore symlinks after running the SLS function
+        "restoreSymlinks": true,        // Restore symlinks after running the SLS function (only if resolveSymlinks is not empty)
         "customArgs": []                // Custom list of argument (one argument per row)
       }
     ]
@@ -479,13 +489,80 @@ Options available (with there default values):
 }
 ```
 
+#### Custom Command
+
+* Plugin name: `custom-cmd`
+* Description: A simple plugin to run any shell function.
+* Requirements: Got installed the command you specify
+* Supported languages: Shell
+
+Options available (with there default values):
+```js
+{
+  "MyStack": {
+    "tasks": [
+      {
+        "plugin": "custom-cmd",     // [Required] Plugin Name
+
+        "cmd": "",                  // The command to run
+        "customArgs": []            // Custom list of argument (one argument per row)        
+      }
+    ]
+  }
+}
+```
+
+#### Symlink Resolver
+
+* Plugin name: `symlink-resolver`
+* Description: A plugin able to resolve symlinks (copy the true file at the symlink's place and backup the original symlink) and restore them.
+* Requirements: Got `ln` installed in your OS (Available on natively Unix and Windows over cygwin)
+* Supported languages: Shell
+* Available functions: 
+  * `default`: Resolve symlinks
+  * `restore`: Restore symlinks if backuped symlink file exists
+
+Options available for `default` function (with there default values):
+```js
+{
+  "MyStack": {
+    "tasks": [
+      {
+        "plugin": "symlink-resolver",       // [Required] Plugin Name
+
+        "links": []                         // List of symlink to resolve        
+      }
+    ]
+  }
+}
+```
+
+Options available for `jenkins` function (with there default values):
+```js
+{
+  "MyStack": {
+    "tasks": [
+      {
+        "plugin": "symlink-resolver",       // [Required] Plugin Name
+        "function": "restore",              // Plugin's function name
+
+        "links": []                         // List of symlink to resolve        
+      }
+    ]
+  }
+}
+```
 
 ## Roadmap
 
 * Improve Verbosity
+* Auto installer for plugin's commands
 * Add third part plugin compatibility
 * Use Dotbox plugin in a node plugin
+* Use plugin references in config file (same plugin conf in multiple stack)
+* Ability to run plugins with a specified tag name inside a stack
 * Add more and more plugins:
   * Apex
   * S3
   * Elastic Beanstalk
+* Add more unit tests :)

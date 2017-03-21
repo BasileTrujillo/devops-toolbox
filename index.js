@@ -10,11 +10,12 @@ const appVersion = require('./package.json').version;
 
 let args = {};
 
-program.version(appVersion)
+program
+  .version(appVersion)
   .description('DevOps Toolbox is a tool to help developers to run CI and CD commands.\n' +
                '  <stackName>\t The stack name provided in config file.')
   .arguments('<stackName>')
-  .action((stackName) => {
+  .action(stackName => {
     args = { stackName };
   })
   .option(
@@ -32,13 +33,13 @@ if (!args.stackName) {
     if (err) {
       console.error(err);
     } else {
-      const loader = new PluginLoader(program, config);
+      const loader = new PluginLoader(config);
 
-      loader.loadAllPlugins().then(() => loader.execPlugins(args.stackName)).catch(error => {
-        console.error(error);
-
-        process.exitCode = 1;
-      });
+      loader.loadAllPlugins().then(() =>
+        loader.execPlugins(args.stackName)).catch(error => {
+          console.error(error);
+          process.exitCode = 1;
+        });
     }
   });
 }
