@@ -425,6 +425,8 @@ Options available for `default` function (with there default values):
         "plugin": "mocha",                // [Required] Plugin Name
 
         "useNyc": false,                  // Execute mocha over NYC (require nyc to be installed)
+        "nycReporters": [],               // Setup NYC reporters
+        "nycCustomArgs": [],              // Custom list of argument (one argument per row) passed to NYC
         "colors": true,                   // Force enabling of colors
         "recursive": true,                // Include sub directories
         "timeout": 0,                     // Set test-case timeout in milliseconds [0 | undefined = 2000]

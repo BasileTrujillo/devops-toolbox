@@ -10,6 +10,8 @@ class mocha extends Plugin {
 
     this.defaultOptsSchemaKeys = {
       useNyc: joi.boolean().default(false),
+      nycReporters: joi.array().default([]),
+      nycCustomArgs: joi.array().default([]),
       colors: joi.boolean().default(true),
       recursive: joi.boolean().default(true),
       timeout: joi.number().integer().default(0),
@@ -50,6 +52,16 @@ class mocha extends Plugin {
     let args = [];
 
     if (pluginOptions.useNyc) {
+      if (pluginOptions.nycReporters.length > 0) {
+        for (const key in pluginOptions.nycReporters) {
+          args.push('--reporter=' + pluginOptions.nycReporters[key]);
+        }
+      }
+
+      if (pluginOptions.nycCustomArgs.length > 0) {
+        args = args.concat(pluginOptions.nycCustomArgs);
+      }
+
       args.push(this.cmd);
       this.cmd = 'nyc';
     }
