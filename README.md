@@ -1,16 +1,18 @@
 # DevOps Toolbox
 
+[![NPM Badge](https://img.shields.io/badge/npm-0.0.1-blue.svg)](https://www.npmjs.com/package/@exaprint/devops-toolbox)
+
 This project helps Developpers, SysAdmin, DevOps, TechOps, NoOps to build DevOps pipelines for any project in any languages.
 
 ## Install
 
 ```bash
   # Dev Install
-  $ npm i --save-dev devops-toolbox
+  $ npm i --save-dev @exaprint/devops-toolbox
   # Prod Install
-  $ npm i --save devops-toolbox
+  $ npm i --save @exaprint/devops-toolbox
   # Global Install
-  $ npm i -g devops-toolbox
+  $ npm i -g @exaprint/devops-toolbox
 ```
 
 ## Technical stack
