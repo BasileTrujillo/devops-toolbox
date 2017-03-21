@@ -252,7 +252,7 @@ To learn more about plugin options and functions step out to the Plugin API Refe
 * Supported languages: Javascript, NodeJs
 * Project link: [https://github.com/es-analysis/plato](https://github.com/es-analysis/plato)
 
-Options available (with there default values):
+Options available (with their default values):
 ```js
 {
   "MyStack": {
@@ -282,7 +282,7 @@ Options available (with there default values):
 * Supported languages: Javascript, NodeJs
 * Project link: [http://usejsdoc.org/](http://usejsdoc.org/)
 
-Options available (with there default values):
+Options available (with their default values):
 ```js
 {
   "MyStack": {
@@ -311,7 +311,7 @@ Options available (with there default values):
 * Supported languages: Javascript, NodeJs
 * Project links: [http://eslint.org/](http://eslint.org/) | [https://github.com/eslint/eslint](https://github.com/eslint/eslint)
 
-Options available (with there default values):
+Options available (with their default values):
 ```js
 {
   "MyStack": {
@@ -338,7 +338,7 @@ Options available (with there default values):
 * Supported languages: Javascript, NodeJs
 * Project links: [http://jshint.com/](http://jshint.com/) 
 
-Options available (with there default values):
+Options available (with their default values):
 ```js
 {
   "MyStack": {
@@ -364,7 +364,7 @@ Options available (with there default values):
 * Supported languages: Javascript, NodeJs
 * Project links: [https://github.com/sindresorhus/xo](https://github.com/sindresorhus/xo) 
 
-Options available (with there default values):
+Options available (with their default values):
 ```js
 {
   "MyStack": {
@@ -388,7 +388,7 @@ Options available (with there default values):
 * Supported languages: Javascript, NodeJs
 * Project links: [https://github.com/nodesecurity/nsp](https://github.com/nodesecurity/nsp) 
 
-Options available (with there default values):
+Options available (with their default values):
 ```js
 {
   "MyStack": {
@@ -416,7 +416,7 @@ Options available (with there default values):
   * `jenkins`: Run your Mocha unit tests with both XUnit and LCov output (for Jenkins).
     * Requirements: Install `jenkins-mocha` using NPM
 
-Options available for `default` function (with there default values):
+Options available for `default` function (with their default values):
 ```js
 {
   "MyStack": {  
@@ -438,7 +438,7 @@ Options available for `default` function (with there default values):
 }
 ```
 
-Options available for `jenkins` function (with there default values):
+Options available for `jenkins` function (with their default values):
 ```js
 {
   "MyStack": {  
@@ -470,7 +470,7 @@ Options available for `jenkins` function (with there default values):
 * Supported languages: Javascript, NodeJs
 * Project links: [serverless.com](https://serverless.com) 
 
-Options available (with there default values):
+Options available (with their default values):
 ```js
 {
   "MyStack": {
@@ -500,7 +500,7 @@ Options available (with there default values):
 * Requirements: Got installed the command you specify
 * Supported languages: Shell
 
-Options available (with there default values):
+Options available (with their default values):
 ```js
 {
   "MyStack": {
@@ -526,7 +526,7 @@ Options available (with there default values):
   * `default`: Resolve symlinks
   * `restore`: Restore symlinks if backuped symlink file exists
 
-Options available for `default` function (with there default values):
+Options available for `default` function (with their default values):
 ```js
 {
   "MyStack": {
@@ -541,7 +541,7 @@ Options available for `default` function (with there default values):
 }
 ```
 
-Options available for `jenkins` function (with there default values):
+Options available for `jenkins` function (with their default values):
 ```js
 {
   "MyStack": {
@@ -561,7 +561,7 @@ Options available for `jenkins` function (with there default values):
 
 * Improve Verbosity
 * Auto installer for plugin's commands
-* Add third part plugin compatibility
+* Add third party plugin compatibility
 * Use Dotbox plugin in a node plugin
 * Use plugin references in config file (same plugin conf in multiple stack)
 * Ability to run plugins with a specified tag name inside a stack
