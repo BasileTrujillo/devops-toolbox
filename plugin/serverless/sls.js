@@ -94,7 +94,7 @@ class sls extends Plugin {
    * @param {Object} pluginOptions Plugin's Options
    * @return {Array} List of arguments
    */
-  static fillDefautlArgs(pluginOptions) {
+  fillDefautlArgs(pluginOptions) {
     let args = [];
 
     if (pluginOptions.slsFunction) {
