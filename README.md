@@ -1,6 +1,6 @@
 # DevOps Toolbox
 
-[![NPM Badge](https://img.shields.io/badge/npm-1.0.0-blue.svg)](https://www.npmjs.com/package/@exaprint/devops-toolbox)
+[![NPM Badge](https://img.shields.io/badge/npm-1.0.1-blue.svg)](https://www.npmjs.com/package/@exaprint/devops-toolbox)
 
 This project helps Developpers, SysAdmin, DevOps, TechOps, NoOps to build DevOps pipelines for any project in any languages.
 
