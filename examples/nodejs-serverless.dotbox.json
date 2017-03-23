@@ -68,8 +68,8 @@
         "plugin": "serverless",
         "slsFunction": "deploy",
         "stage": "dev",
-        "removeDevDependencies": true,
-        "restoreDevDependencies": true,
+        "removeNpmDevDependencies": true,
+        "restoreNpmDevDependencies": true,
         "resolveSymlinks": [
           "config.json"
         ],
@@ -85,8 +85,8 @@
         "plugin": "serverless",
         "slsFunction": "deploy function",
         "stage": "dev",
-        "removeDevDependencies": true,
-        "restoreDevDependencies": true,
+        "removeNpmDevDependencies": true,
+        "restoreNpmDevDependencies": true,
         "resolveSymlinks": [
           "config.json"
         ],
@@ -106,8 +106,8 @@
         "plugin": "serverless",
         "slsFunction": "remove",
         "stage": "dev",
-        "removeDevDependencies": false,
-        "restoreDevDependencies": false
+        "removeNpmDevDependencies": false,
+        "restoreNpmDevDependencies": false
       }
     ]
   }

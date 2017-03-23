@@ -3,7 +3,7 @@
 const joi = require('joi');
 const Plugin = require('../../lib/plugin');
 
-class xo extends Plugin {
+class Xo extends Plugin {
   constructor(options) {
     super(options);
 
@@ -41,4 +41,4 @@ class xo extends Plugin {
   }
 }
 
-module.exports = xo;
+module.exports = Xo;

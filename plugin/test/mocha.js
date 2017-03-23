@@ -4,7 +4,7 @@ const joi = require('joi');
 const merge = require('merge');
 const Plugin = require('../../lib/plugin');
 
-class mocha extends Plugin {
+class Mocha extends Plugin {
   constructor(options) {
     super(options);
 
@@ -34,7 +34,7 @@ class mocha extends Plugin {
     const pluginOptions = this.validateOptions();
 
     this.cmd = 'mocha';
-    const args = this.fillDefautlArgs(pluginOptions);
+    const args = this.fillDefaultArgs(pluginOptions);
 
     this.installCmd.push('npm i --save-dev ' + this.cmd);
     this.installCmd.push('npm i -g ' + this.cmd);
@@ -48,7 +48,7 @@ class mocha extends Plugin {
    * @param {Object} pluginOptions Plugin's Options
    * @return {Array} List of arguments
    */
-  fillDefautlArgs(pluginOptions) {
+  fillDefaultArgs(pluginOptions) {
     let args = [];
 
     if (pluginOptions.useNyc) {
@@ -108,7 +108,7 @@ class mocha extends Plugin {
 
     this.cmd = 'jenkins-mocha';
 
-    const args = this.fillDefautlArgs(pluginOptions);
+    const args = this.fillDefaultArgs(pluginOptions);
 
     this.installCmd.push('npm i --save-dev ' + this.cmd);
     this.installCmd.push('npm i -g ' + this.cmd);
@@ -123,4 +123,4 @@ class mocha extends Plugin {
   }
 }
 
-module.exports = mocha;
+module.exports = Mocha;
