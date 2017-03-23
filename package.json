@@ -1,6 +1,6 @@
 {
   "name": "@exaprint/devops-toolbox",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "DevOps Toolbox [DOTbox]",
   "scripts": {
     "test": "./index.js test",
