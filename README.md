@@ -228,11 +228,12 @@ To learn more about plugin options and functions step out to the Plugin API Refe
 | ------------- |-------------| -----| -----|
 | `mocha`      | Mocha is a feature-rich JavaScript test framework running on Node.js and in the browser, making asynchronous testing simple and fun | Javascript, NodeJS | [mochajs.org](https://mochajs.org/)|
 
-#### --- Serverless Deployment ---
+#### --- Deployments ---
 
 | Plugins       | Description   | Languages| Link |
 | ------------- |-------------| -----| -----|
-| `sls`      | The Serverless Framework allows you to deploy auto-scaling, pay-per-execution, event-driven functions to any cloud. | Javascript, NodeJS | [serverless.com](https://serverless.com/)|
+| `serverless`  | The Serverless Framework allows you to deploy auto-scaling, pay-per-execution, event-driven functions to any cloud. | Javascript, NodeJS | [serverless.com](https://serverless.com/)|
+| `dpl`         | Dpl (dee-pee-ell) is a deploy tool made for continuous deployment. (Made by Tavis-CI) | * | [Github Project](https://github.com/travis-ci/dpl)|
 
 #### --- Misc & tools ---
 
@@ -462,9 +463,9 @@ Options available for `jenkins` function (with their default values):
 }
 ```
 
-#### SLS (Serverless Framework)
+#### The Serverless Framework
 
-* Plugin name: `sls`
+* Plugin name: `serverless`
 * Description: The Serverless Framework allows you to deploy auto-scaling, pay-per-execution, event-driven functions to any cloud.
 * Requirements: Install Serverless Framework using NPM
 * Supported languages: Javascript, NodeJs
@@ -476,17 +477,47 @@ Options available (with their default values):
   "MyStack": {
     "tasks": [
       {
-        "plugin": "sls",                // [Required] Plugin Name
-        "slsFunction": "deploy",        // [Required] Serverless function to call (related to the SLS CLI API Reference)
+        "plugin": "serverless",             // [Required] Plugin Name
+        "slsFunction": "",                  // [Required] Serverless function to call (related to the SLS CLI API Reference)
 
-        "quiet": false,                 // If set to true, the --verbose flag will not be used
-        "stage": null,                  // The stage in your service that you want to deploy to
-        "region": null,                 // The region in that stage that you want to deploy to
-        "removeDevDependencies": true,  // Auto remove NPM Dev Dependencies before running the SLS function
-        "restoreDevDependencies": false,// Auto restore NPM Dev Dependencies after running the SLS function
-        "resolveSymlinks": [],          // Resolve symlinks by copying true files as replacement before running the SLS function
-        "restoreSymlinks": true,        // Restore symlinks after running the SLS function (only if resolveSymlinks is not empty)
-        "customArgs": []                // Custom list of argument (one argument per row)
+        "quiet": false,                     // If set to true, the --verbose flag will not be used
+        "stage": null,                      // The stage in your service that you want to deploy to
+        "region": null,                     // The region in that stage that you want to deploy to
+        "removeNpmDevDependencies": true,   // Auto remove NPM Dev Dependencies before running the SLS function
+        "restoreNpmDevDependencies": false, // Auto restore NPM Dev Dependencies after running the SLS function
+        "resolveSymlinks": [],              // Resolve symlinks by copying true files as replacement before running the SLS function
+        "restoreSymlinks": true,            // Restore symlinks after running the SLS function (only if resolveSymlinks is not empty)
+        "customArgs": []                    // Custom list of argument (one argument per row)
+      }
+    ]
+  }
+}
+```
+
+#### Dpl (dee-pee-ell)
+
+* Plugin name: `dpl`
+* Description: Dpl (dee-pee-ell) is a deploy tool made for continuous deployment.
+* Requirements:
+  * Dpl requires ruby with a version greater than 1.9.3
+  * To install: `gem install dpl`
+* Project links: [https://github.com/travis-ci/dpl](https://github.com/travis-ci/dpl) 
+
+Options available (with their default values):
+```js
+{
+  "MyStack": {
+    "tasks": [
+      {
+        "plugin": "dpl",                    // [Required] Plugin Name
+        "provider": "",                     // [Required] DPL provider (related to the DPL API Reference)
+
+        "skipCleanup": false,               // Dpl will deploy by default from the latest commit. Use the --skip_cleanup flag to deploy from the current file state. Note that many providers deploy by git and could ignore this option.
+        "removeNpmDevDependencies": true,   // Auto remove NPM Dev Dependencies before running the SLS function
+        "restoreNpmDevDependencies": false, // Auto restore NPM Dev Dependencies after running the SLS function
+        "resolveSymlinks": [],              // Resolve symlinks by copying true files as replacement before running the SLS function
+        "restoreSymlinks": true,            // Restore symlinks after running the SLS function (only if resolveSymlinks is not empty)
+        "customArgs": []                    // Custom list of argument (one argument per row)
       }
     ]
   }
@@ -560,13 +591,11 @@ Options available for `jenkins` function (with their default values):
 ## Roadmap
 
 * Improve Verbosity
+* Improve JS Doc
 * Auto installer for plugin's commands
 * Add third party plugin compatibility
 * Use Dotbox plugin in a node plugin
 * Use plugin references in config file (same plugin conf in multiple stack)
 * Ability to run plugins with a specified tag name inside a stack
-* Add more and more plugins:
-  * Apex
-  * S3
-  * Elastic Beanstalk
+* Add more and more plugins...
 * Add more unit tests :)

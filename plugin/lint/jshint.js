@@ -4,7 +4,7 @@ const joi = require('joi');
 const fs = require('fs-extra');
 const Plugin = require('../../lib/plugin');
 
-class jshint extends Plugin {
+class Jshint extends Plugin {
   constructor(options) {
     super(options);
 
@@ -56,4 +56,4 @@ class jshint extends Plugin {
   }
 }
 
-module.exports = jshint;
+module.exports = Jshint;

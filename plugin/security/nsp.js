@@ -3,7 +3,7 @@
 const joi = require('joi');
 const Plugin = require('../../lib/plugin');
 
-class nsp extends Plugin {
+class Nsp extends Plugin {
   constructor(options) {
     super(options);
 
@@ -51,4 +51,4 @@ class nsp extends Plugin {
   }
 }
 
-module.exports = nsp;
+module.exports = Nsp;

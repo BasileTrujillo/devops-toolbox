@@ -16,8 +16,8 @@
         "checkstyleExport": true,
         "targets": [
           "index.js",
-          "lib/*",
-          "plugin/**/*"
+          "plugin",
+          "lib"
         ]
       },
       {
@@ -64,7 +64,12 @@
   "lint": {
     "tasks": [
       {
-        "plugin": "eslint"
+        "plugin": "eslint",
+        "targets": [
+          "index.js",
+          "plugin",
+          "lib"
+        ]
       }
     ]
   }

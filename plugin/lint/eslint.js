@@ -4,7 +4,7 @@ const joi = require('joi');
 const fs = require('fs-extra');
 const Plugin = require('../../lib/plugin');
 
-class eslint extends Plugin {
+class Eslint extends Plugin {
   constructor(options) {
     super(options);
 
@@ -63,4 +63,4 @@ class eslint extends Plugin {
   }
 }
 
-module.exports = eslint;
+module.exports = Eslint;

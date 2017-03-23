@@ -5,7 +5,7 @@ const fs = require('fs-extra');
 const chalk = require('chalk');
 const Plugin = require('../../lib/plugin');
 
-class plato extends Plugin {
+class Plato extends Plugin {
   constructor(options) {
     super(options);
 
@@ -49,7 +49,7 @@ class plato extends Plugin {
       args.push(pluginOptions.title);
     } else if (pluginOptions.autoTitle) {
       try {
-        const packageObj = fs.readJsonSync(plato.PACKAGEJSON_PATH);
+        const packageObj = fs.readJsonSync(Plato.PACKAGEJSON_PATH);
 
         if (packageObj.name && packageObj.name !== '') {
           args.push('-t');
@@ -82,6 +82,6 @@ class plato extends Plugin {
   }
 }
 
-plato.PACKAGEJSON_PATH = './package.json';
+Plato.PACKAGEJSON_PATH = './package.json';
 
-module.exports = plato;
+module.exports = Plato;

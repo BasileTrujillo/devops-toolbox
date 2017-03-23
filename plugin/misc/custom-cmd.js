@@ -3,7 +3,7 @@
 const joi = require('joi');
 const Plugin = require('../../lib/plugin');
 
-class custom_cmd extends Plugin {
+class CustomCmd extends Plugin {
   constructor(options) {
     super(options);
 
@@ -36,4 +36,4 @@ class custom_cmd extends Plugin {
   }
 }
 
-module.exports = custom_cmd;
+module.exports = CustomCmd;

@@ -4,7 +4,7 @@ const joi = require('joi');
 const Plugin = require('../../lib/plugin');
 const SymlinkResolver = require('../misc/symlink-resolver');
 
-class serverless extends Plugin {
+class Serverless extends Plugin {
   constructor(options) {
     super(options);
 
@@ -28,8 +28,8 @@ class serverless extends Plugin {
         'us-west-2',
       ]).default(null),
       stage: joi.string().default(null),
-      removeDevDependencies: joi.boolean().default(true),
-      restoreDevDependencies: joi.boolean().default(false),
+      removeNpmDevDependencies: joi.boolean().default(true),
+      restoreNpmDevDependencies: joi.boolean().default(false),
       resolveSymlinks: joi.array().items(joi.string()).default([]),
       restoreSymlinks: joi.boolean().default(true),
       customArgs: joi.array().default(null)
@@ -49,12 +49,12 @@ class serverless extends Plugin {
    */
   run_default() {
     const pluginOptions = this.validateOptions();
-    const args = this.fillDefautlArgs(pluginOptions);
+    const args = this.fillDefaultArgs(pluginOptions);
 
     return new Promise((resolve, reject) => {
       let execPromise = Promise.resolve();
 
-      if (pluginOptions.removeDevDependencies) {
+      if (pluginOptions.removeNpmDevDependencies) {
         execPromise = this.execExternalCmd('npm', ['prune', '--production'])
           .then(() => this.execExternalCmd('npm', ['install', '--production']));
       }
@@ -80,7 +80,7 @@ class serverless extends Plugin {
         execPromise = execPromise.then(() => symlinkResolver.run());
       }
 
-      if (pluginOptions.restoreDevDependencies) {
+      if (pluginOptions.restoreNpmDevDependencies) {
         execPromise = execPromise.then(() => this.execExternalCmd('npm', ['install']));
       }
 
@@ -94,7 +94,7 @@ class serverless extends Plugin {
    * @param {Object} pluginOptions Plugin's Options
    * @return {Array} List of arguments
    */
-  fillDefautlArgs(pluginOptions) {
+  fillDefaultArgs(pluginOptions) {
     let args = [];
 
     if (pluginOptions.slsFunction) {
@@ -123,4 +123,4 @@ class serverless extends Plugin {
   }
 }
 
-module.exports = serverless;
+module.exports = Serverless;

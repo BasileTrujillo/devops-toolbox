@@ -4,32 +4,15 @@ const joi = require('joi');
 const Plugin = require('../../lib/plugin');
 const SymlinkResolver = require('../misc/symlink-resolver');
 
-class sls extends Plugin {
+class Dpl extends Plugin {
   constructor(options) {
     super(options);
 
     this.defaultOptsSchemaKeys = {
-      slsFunction: joi.string().required(),
-      quiet: joi.boolean().default(false),
-      region: joi.string().valid([
-        'ap-northeast-1',
-        'ap-northeast-2',
-        'ap-south-1',
-        'ap-southeast-1',
-        'ap-southeast-2',
-        'cn-north-1',
-        'eu-central-1',
-        'eu-west-1',
-        'eu-west-2',
-        'sa-east-1',
-        'us-east-1',
-        'us-east-2',
-        'us-west-1',
-        'us-west-2',
-      ]).default(null),
-      stage: joi.string().default(null),
-      removeDevDependencies: joi.boolean().default(true),
-      restoreDevDependencies: joi.boolean().default(false),
+      provider: joi.string().required(),
+      skipCleanup: joi.boolean().default(false),
+      removeNpmDevDependencies: joi.boolean().default(true),
+      restoreNpmDevDependencies: joi.boolean().default(false),
       resolveSymlinks: joi.array().items(joi.string()).default([]),
       restoreSymlinks: joi.boolean().default(true),
       customArgs: joi.array().default(null)
@@ -37,9 +20,9 @@ class sls extends Plugin {
 
     this.optSchema = joi.object().keys(this.defaultOptsSchemaKeys).unknown();
 
-    this.cmd = 'serverless';
-    this.installCmd.push('npm i -g ' + this.cmd);
-    this.description = 'The Serverless Framework';
+    this.cmd = 'dpl';
+    this.installCmd.push('gem install ' + this.cmd);
+    this.description = 'Dpl (dee-pee-ell)';
   }
 
   /**
@@ -49,12 +32,12 @@ class sls extends Plugin {
    */
   run_default() {
     const pluginOptions = this.validateOptions();
-    const args = this.fillDefautlArgs(pluginOptions);
+    const args = this.fillDefaultArgs(pluginOptions);
 
     return new Promise((resolve, reject) => {
       let execPromise = Promise.resolve();
 
-      if (pluginOptions.removeDevDependencies) {
+      if (pluginOptions.removeNpmDevDependencies) {
         execPromise = this.execExternalCmd('npm', ['prune', '--production'])
           .then(() => this.execExternalCmd('npm', ['install', '--production']));
       }
@@ -80,7 +63,7 @@ class sls extends Plugin {
         execPromise = execPromise.then(() => symlinkResolver.run());
       }
 
-      if (pluginOptions.restoreDevDependencies) {
+      if (pluginOptions.restoreNpmDevDependencies) {
         execPromise = execPromise.then(() => this.execExternalCmd('npm', ['install']));
       }
 
@@ -94,25 +77,15 @@ class sls extends Plugin {
    * @param {Object} pluginOptions Plugin's Options
    * @return {Array} List of arguments
    */
-  fillDefautlArgs(pluginOptions) {
+  fillDefaultArgs(pluginOptions) {
     let args = [];
 
-    if (pluginOptions.slsFunction) {
-      args = args.concat(pluginOptions.slsFunction.split(' '));
+    if (pluginOptions.provider) {
+      args.push('--provider=' + pluginOptions.provider);
     }
 
-    if (pluginOptions.quiet === false) {
-      args.push('--verbose');
-    }
-
-    if (pluginOptions.region !== null) {
-      args.push('--region');
-      args.push(pluginOptions.region);
-    }
-
-    if (pluginOptions.stage !== null) {
-      args.push('--stage');
-      args.push(pluginOptions.stage);
+    if (pluginOptions.skipCleanup) {
+      args.push('--skip_cleanup');
     }
 
     if (pluginOptions.customArgs !== null) {
@@ -123,4 +96,4 @@ class sls extends Plugin {
   }
 }
 
-module.exports = sls;
+module.exports = Dpl;
