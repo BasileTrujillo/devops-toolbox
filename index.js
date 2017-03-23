@@ -1,4 +1,4 @@
-#!/usr/bin/env node --harmony
+#! node --harmony
 
 'use strict';
 
@@ -43,3 +43,4 @@ if (!args.stackName) {
     }
   });
 }
+
