@@ -65,7 +65,7 @@
     "async": false,
     "tasks": [
       {
-        "plugin": "sls",
+        "plugin": "serverless",
         "slsFunction": "deploy",
         "stage": "dev",
         "removeDevDependencies": true,
@@ -82,7 +82,7 @@
     "async": false,
     "tasks": [
       {
-        "plugin": "sls",
+        "plugin": "serverless",
         "slsFunction": "deploy function",
         "stage": "dev",
         "removeDevDependencies": true,
@@ -103,7 +103,7 @@
     "async": false,
     "tasks": [
       {
-        "plugin": "sls",
+        "plugin": "serverless",
         "slsFunction": "remove",
         "stage": "dev",
         "removeDevDependencies": false,
