@@ -1,14 +1,14 @@
 {
   "name": "@exaprint/devops-toolbox",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "DevOps Toolbox [DOTbox]",
   "scripts": {
-    "test": "dotbox test",
-    "lint": "dotbox lint",
-    "ci": "dotbox ci",
-    "deploy": "dotbox deploy",
-    "deploy-function": "dotbox deploy-function",
-    "undeploy": "dotbox undeploy"
+    "test": "./index.js test",
+    "lint": "./index.js lint",
+    "ci": "./index.js ci",
+    "deploy": "./index.js deploy",
+    "deploy-function": "./index.js deploy-function",
+    "undeploy": "./index.js undeploy"
   },
   "main": "index.js",
   "bin": {
