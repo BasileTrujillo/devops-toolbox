@@ -8,7 +8,7 @@ describe('PluginLoader', () => {
   it('Should load all plugins', () => {
     const loader = new PluginLoader({});
 
-    loader.loadAllPlugins().then(() => {
+    return loader.loadAllPlugins().then(() => {
       expect(loader.plugins).to.be.instanceof(Object);
       expect(loader.plugins).to.have.property('plato');
       expect(loader.plugins).to.have.property('jsdoc');
@@ -18,8 +18,9 @@ describe('PluginLoader', () => {
       expect(loader.plugins).to.have.property('symlink-resolver');
       expect(loader.plugins).to.have.property('custom-cmd');
       expect(loader.plugins).to.have.property('nsp');
-      expect(loader.plugins).to.have.property('sls');
+      expect(loader.plugins).to.have.property('serverless');
       expect(loader.plugins).to.have.property('mocha');
+      expect(loader.plugins).to.have.property('dpl');
     });
   });
 

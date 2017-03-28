@@ -63,7 +63,11 @@ class Mocha extends Plugin {
       }
 
       args.push(this.cmd);
-      this.cmd = 'nyc';
+      if (this.checkExistingExternalCmd()) {
+        this.cmd = 'nyc';
+      } else {
+        throw Error(`"${this.cmd}" command not found.`);
+      }
     }
 
     if (pluginOptions.colors) {

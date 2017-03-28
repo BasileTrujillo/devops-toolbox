@@ -1,18 +1,20 @@
 # DevOps Toolbox
 
-[![NPM Badge](https://img.shields.io/badge/npm-1.2.1-blue.svg)](https://www.npmjs.com/package/@exaprint/devops-toolbox)
+[![NPM Badge](https://img.shields.io/badge/npm-1.3.0-blue.svg)](https://www.npmjs.com/package/@exaprint/devops-toolbox)
 
 This project helps Developpers, SysAdmin, DevOps, TechOps, NoOps to build DevOps pipelines for any project in any languages.
+
+Note: The Github project is just a mirror. The upstream of this project hosted on Gitlab at: https://gitlab.com/BasileTrujillo/devops-toolbox
 
 ## Install
 
 ```bash
   # Dev Install
-  $ npm i --save-dev @exaprint/devops-toolbox
+  $ npm i --save-dev devops-toolbox
   # Prod Install
-  $ npm i --save @exaprint/devops-toolbox
+  $ npm i --save devops-toolbox
   # Global Install
-  $ npm i -g @exaprint/devops-toolbox
+  $ npm i -g devops-toolbox
 ```
 
 ## Technical stack
