@@ -1,14 +1,11 @@
 {
   "name": "@exaprint/devops-toolbox",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "description": "DevOps Toolbox [DOTbox]",
   "scripts": {
     "test": "./index.js test",
     "lint": "./index.js lint",
-    "ci": "./index.js ci",
-    "deploy": "./index.js deploy",
-    "deploy-function": "./index.js deploy-function",
-    "undeploy": "./index.js undeploy"
+    "build": "./index.js build"
   },
   "main": "index.js",
   "bin": {
@@ -17,18 +14,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/exaprint/devops-toolbox.git"
+    "url": "git+https://gitlab.com/BasileTrujillo/devops-toolbox.git"
   },
   "bugs": {
-    "url": "https://github.com/exaprint/devops-toolbox/issues"
+    "url": "https://gitlab.com/BasileTrujillo/devops-toolbox/issues"
   },
-  "homepage": "https://github.com/exaprint/devops-toolbox#readme",
+  "homepage": "https://gitlab.com/BasileTrujillo/devops-toolbox/blob/master/README.md",
   "keywords": [
     "cli",
     "node",
-    "js"
+    "js",
+    "devops",
+    "toolbox"
   ],
-  "author": "L0gIn <basile@exagroup.biz>",
+  "author": "L0gIn <basiletrujillo@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "chalk": "^1.1.3",
@@ -45,8 +44,8 @@
     "eslint": "3.12.0",
     "eslint-config-exaprint": "latest",
     "ink-docstrap": "1.3.0",
-    "jenkins-mocha": "3.0.4",
     "jsdoc": "3.4.3",
+    "mocha": "^3.2.0",
     "nsp": "2.6.2",
     "nyc": "^10.1.2",
     "plato": "1.7.0"
