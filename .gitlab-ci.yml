@@ -1,0 +1,102 @@
+image: node:latest
+
+cache:
+  paths:
+    - node_modules/
+
+stages:
+  - test
+  - build
+  - deploy
+
+############ Templates ############
+.tpl_test: &test_definition
+  stage: test
+  script:
+    - yarn
+    - yarn test
+  tags:
+    - docker
+  coverage: '/^Statements\s*:\s*([^%]+)/'
+###################################
+
+############ CI ############
+test:latest:
+  <<: *test_definition
+  image: node:latest
+  artifacts:
+    name: coverage
+    paths:
+      - coverage/
+
+test:6.10:
+  <<: *test_definition
+  image: node:6.10
+
+test:4.8:
+  <<: *test_definition
+  image: node:4.8
+
+lint:
+  image: node:latest
+  stage: test
+  script:
+    - yarn
+    - yarn lint
+  tags:
+    - docker
+  allow_failure: true
+  except:
+    - develop
+    - master
+
+doc_and_analysis:
+  image: node:latest
+  stage: build
+  script:
+    - yarn
+    - yarn build
+  artifacts:
+    paths:
+      - artifacts/jsdoc/
+      - artifacts/plato/
+  tags:
+    - docker
+  only:
+    - master
+##################################
+
+############ Deploy ############
+pages:
+  stage: deploy
+  dependencies:
+    - test:latest
+    - doc_and_analysis
+  script:
+    - npm i -g indexifier
+    - mkdir public/ public/jsdoc/ public/plato/ public/coverage/
+    - mv coverage/ public/
+    - mv artifacts/jsdoc/ public/
+    - mv artifacts/plato/ public/
+    - indexifier ./public --html > public/index.html
+  artifacts:
+    paths:
+      - public
+    expire_in: 30 days
+  tags:
+    - docker
+  only:
+    - master
+
+publish:
+  stage: deploy
+  script:
+    - yarn
+    - echo "//registry.npmjs.org/:_authToken=$NPM_AUTH_TOKEN" > ~/.npmrc
+    - npm publish
+  tags:
+    - docker
+  only:
+    - tags
+
+######################################
