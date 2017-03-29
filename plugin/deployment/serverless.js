@@ -100,26 +100,28 @@ class Serverless extends Plugin {
   fillDefaultArgs(pluginOptions) {
     let args = [];
 
-    if (pluginOptions.slsFunction) {
-      args = args.concat(pluginOptions.slsFunction.split(' '));
-    }
+    if (this.cmd !== '') {
+      if (pluginOptions.slsFunction) {
+        args = args.concat(pluginOptions.slsFunction.split(' '));
+      }
 
-    if (pluginOptions.quiet === false) {
-      args.push('--verbose');
-    }
+      if (pluginOptions.quiet === false) {
+        args.push('--verbose');
+      }
 
-    if (pluginOptions.region !== null) {
-      args.push('--region');
-      args.push(pluginOptions.region);
-    }
+      if (pluginOptions.region !== null) {
+        args.push('--region');
+        args.push(pluginOptions.region);
+      }
 
-    if (pluginOptions.stage !== null) {
-      args.push('--stage');
-      args.push(pluginOptions.stage);
-    }
+      if (pluginOptions.stage !== null) {
+        args.push('--stage');
+        args.push(pluginOptions.stage);
+      }
 
-    if (pluginOptions.customArgs !== null) {
-      args = args.concat(pluginOptions.customArgs);
+      if (pluginOptions.customArgs !== null) {
+        args = args.concat(pluginOptions.customArgs);
+      }
     }
 
     return args;
