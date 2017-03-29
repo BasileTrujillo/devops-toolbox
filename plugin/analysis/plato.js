@@ -6,6 +6,9 @@ const chalk = require('chalk');
 const Plugin = require('../../lib/plugin');
 
 class Plato extends Plugin {
+  /**
+   * @param {Object} options Plugin Options
+   */
   constructor(options) {
     super(options);
 

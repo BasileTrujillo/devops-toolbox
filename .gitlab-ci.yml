@@ -21,7 +21,7 @@ stages:
 ###################################
 
 ############ CI ############
-test:latest:
+test:nodejs-latest:
   <<: *test_definition
   image: node:latest
   artifacts:
@@ -29,11 +29,11 @@ test:latest:
     paths:
       - coverage/
 
-test:6.10:
+test:nodejs-6.10:
   <<: *test_definition
   image: node:6.10
 
-test:4.8:
+test:nodejs-4.8:
   <<: *test_definition
   image: node:4.8
 
@@ -70,7 +70,7 @@ doc_and_analysis:
 pages:
   stage: deploy
   dependencies:
-    - test:latest
+    - test:nodejs-latest
     - doc_and_analysis
   script:
     - npm i -g indexifier

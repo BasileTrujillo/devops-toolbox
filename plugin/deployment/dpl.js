@@ -5,6 +5,9 @@ const Plugin = require('../../lib/plugin');
 const SymlinkResolver = require('../misc/symlink-resolver');
 
 class Dpl extends Plugin {
+  /**
+   * @param {Object} options Plugin Options
+   */
   constructor(options) {
     super(options);
 
@@ -80,16 +83,18 @@ class Dpl extends Plugin {
   fillDefaultArgs(pluginOptions) {
     let args = [];
 
-    if (pluginOptions.provider) {
-      args.push('--provider=' + pluginOptions.provider);
-    }
+    if (this.cmd !== '') {
+      if (pluginOptions.provider) {
+        args.push('--provider=' + pluginOptions.provider);
+      }
 
-    if (pluginOptions.skipCleanup) {
-      args.push('--skip_cleanup');
-    }
+      if (pluginOptions.skipCleanup) {
+        args.push('--skip_cleanup');
+      }
 
-    if (pluginOptions.customArgs !== null) {
-      args = args.concat(pluginOptions.customArgs);
+      if (pluginOptions.customArgs !== null) {
+        args = args.concat(pluginOptions.customArgs);
+      }
     }
 
     return args;

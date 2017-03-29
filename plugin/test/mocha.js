@@ -5,6 +5,9 @@ const merge = require('merge');
 const Plugin = require('../../lib/plugin');
 
 class Mocha extends Plugin {
+  /**
+   * @param {Object} options Plugin Options
+   */
   constructor(options) {
     super(options);
 

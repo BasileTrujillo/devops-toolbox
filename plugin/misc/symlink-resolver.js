@@ -6,6 +6,9 @@ const fs = require('fs-extra');
 const Plugin = require('../../lib/plugin');
 
 class SymlinkResolver extends Plugin {
+  /**
+   * @param {Object} options Plugin Options
+   */
   constructor(options) {
     super(options);
 
