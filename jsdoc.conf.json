@@ -12,7 +12,7 @@
     "outputSourcePath": true,
     "systemName": "JsDoc - DevOps Toolbox",
     "footer": "",
-    "copyright": "Exagroup",
+    "copyright": "",
     "navType": "vertical",
     "theme": "cosmo",
     "linenums": true,
