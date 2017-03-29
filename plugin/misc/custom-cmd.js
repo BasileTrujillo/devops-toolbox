@@ -4,6 +4,9 @@ const joi = require('joi');
 const Plugin = require('../../lib/plugin');
 
 class CustomCmd extends Plugin {
+  /**
+   * @param {Object} options Plugin Options
+   */
   constructor(options) {
     super(options);
 

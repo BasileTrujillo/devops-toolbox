@@ -4,6 +4,9 @@ const joi = require('joi');
 const Plugin = require('../../lib/plugin');
 
 class Jsdoc extends Plugin {
+  /**
+   * @param {Object} options Plugin Options
+   */
   constructor(options) {
     super(options);
 
@@ -34,6 +37,10 @@ class Jsdoc extends Plugin {
     this.installCmd.push('npm i -g jsdoc');
 
     let args = [];
+
+    if (pluginOptions.targets.length > 0) {
+      args = args.concat(pluginOptions.targets);
+    }
 
     if (pluginOptions.outputDir !== '') {
       args.push('-d');
@@ -68,9 +75,6 @@ class Jsdoc extends Plugin {
       args = args.concat(pluginOptions.customArgs);
     }
 
-    if (pluginOptions.targets.length > 0) {
-      args = args.concat(pluginOptions.targets);
-    }
 
     return this.execExternalCmd(this.cmd, args, this.options);
   }

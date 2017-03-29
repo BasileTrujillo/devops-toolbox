@@ -5,6 +5,9 @@ const fs = require('fs-extra');
 const Plugin = require('../../lib/plugin');
 
 class Jshint extends Plugin {
+  /**
+   * @param {Object} options Plugin Options
+   */
   constructor(options) {
     super(options);
 

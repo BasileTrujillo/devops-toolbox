@@ -5,6 +5,9 @@ const Plugin = require('../../lib/plugin');
 const SymlinkResolver = require('../misc/symlink-resolver');
 
 class Serverless extends Plugin {
+  /**
+   * @param {Object} options Plugin Options
+   */
   constructor(options) {
     super(options);
 
