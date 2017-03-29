@@ -1,6 +1,11 @@
 # DevOps Toolbox
 
-[![NPM Badge](https://img.shields.io/badge/npm-1.3.0-blue.svg)](https://www.npmjs.com/package/@exaprint/devops-toolbox)
+[![build status](https://gitlab.com/BasileTrujillo/devops-toolbox/badges/master/build.svg)](https://gitlab.com/BasileTrujillo/devops-toolbox/commits/master)
+[![NPM Badge](https://img.shields.io/npm/v/devops-toolbox.svg)](https://www.npmjs.com/package/devops-toolbox)
+[![coverage report](https://img.shields.io/badge/link-coverage-green.svg)](https://basiletrujillo.gitlab.io/devops-toolbox/coverage)
+[![JsDoc report](https://img.shields.io/badge/link-jsdoc-green.svg)](https://basiletrujillo.gitlab.io/devops-toolbox/jsdoc)
+[![Plato report](https://img.shields.io/badge/link-plato-green.svg)](https://basiletrujillo.gitlab.io/devops-toolbox/plato)
+
 
 This project helps Developpers, SysAdmin, DevOps, TechOps, NoOps to build DevOps pipelines for any project in any languages.
 
