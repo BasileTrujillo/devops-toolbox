@@ -91,7 +91,6 @@ pages:
 publish:
   stage: deploy
   script:
-    - yarn
     - echo "//registry.npmjs.org/:_authToken=$NPM_AUTH_TOKEN" > ~/.npmrc
     - npm publish
   tags:

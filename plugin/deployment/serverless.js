@@ -31,6 +31,7 @@ class Serverless extends Plugin {
         'us-west-2',
       ]).default(null),
       stage: joi.string().default(null),
+      useYarn: joi.boolean().default(false),
       removeNpmDevDependencies: joi.boolean().default(true),
       restoreNpmDevDependencies: joi.boolean().default(false),
       resolveSymlinks: joi.array().items(joi.string()).default([]),
@@ -58,8 +59,12 @@ class Serverless extends Plugin {
       let execPromise = Promise.resolve();
 
       if (pluginOptions.removeNpmDevDependencies) {
-        execPromise = this.execExternalCmd('npm', ['prune', '--production'])
-          .then(() => this.execExternalCmd('npm', ['install', '--production']));
+        if (pluginOptions.useYarn) {
+          execPromise = this.execExternalCmd('yarn', ['install', '--production']);
+        } else {
+          execPromise = this.execExternalCmd('npm', ['prune', '--production'])
+            .then(() => this.execExternalCmd('npm', ['install', '--production']));
+        }
       }
 
       if (pluginOptions.resolveSymlinks.length > 0) {
@@ -84,7 +89,11 @@ class Serverless extends Plugin {
       }
 
       if (pluginOptions.restoreNpmDevDependencies) {
-        execPromise = execPromise.then(() => this.execExternalCmd('npm', ['install']));
+        if (pluginOptions.useYarn) {
+          execPromise = this.execExternalCmd('yarn', ['install']);
+        } else {
+          execPromise = execPromise.then(() => this.execExternalCmd('npm', ['install']));
+        }
       }
 
       return execPromise.then(response => resolve(response)).catch(response => reject(response));
