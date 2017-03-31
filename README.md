@@ -248,6 +248,7 @@ To learn more about plugin options and functions step out to the Plugin API Refe
 | ------------- |-------------| -----| -----|
 | `custom-cmd`      | A simple plugin to run any shell function | Shell | |
 | `symlink-resolver`      | A plugin able to resolve symlinks (copy the true file at the symlink's place) and restore them | Shell | |
+| `git-file-downloader`      | Git File Downloader is a CLI tool to download a raw file from Github or Gitlab. | Shell | [Gitlab Project](https://gitlab.com/BasileTrujillo/git-file-downloader)|
 
 
 ### Plugin Reference
@@ -589,6 +590,37 @@ Options available for `jenkins` function (with their default values):
         "function": "restore",              // Plugin's function name
 
         "links": []                         // List of symlink to resolve        
+      }
+    ]
+  }
+}
+```
+
+#### Git File Downloader
+
+* Plugin name: `git-file-downloader`
+* Description: Git File Downloader is a CLI tool to download a raw file from Github or Gitlab.
+* Requirements: Install git-file-downloader NPM Package
+* Supported languages: Shell
+
+Options available (with their default values):
+```js
+{
+  "MyStack": {
+    "tasks": [
+      {
+        "plugin": "git-file-downloader",  // [Required] Plugin Name
+
+        "provider": "",                   // [Required] Set git provider. Supported providers: "github", "gitlab".
+        "repository": "",                 // [Required] Repository identifier (formerly owner/repo)
+        "file": "",                       // [Required] Remote file to download
+        "branch": "master",               // Set the branch name. Default to "master".
+        "output": ".",                    // Set the output directory. Default to current location.
+        "keep_original_path": false,      // Option to keep original path inside output directory. By default, it will place the single file inside output directory.
+        "private_token": null,            // Set Gitlab Private Token.
+        "oauth2_token": null,             // Set Github OAuth2 Token.
+        "basic_username": null,           // Set Github Basic Auth Username.
+        "basic_password": null            // Set Github Basic Auth Password.
       }
     ]
   }

@@ -15,8 +15,9 @@ describe('PluginLoader', () => {
       expect(loader.plugins).to.have.property('eslint');
       expect(loader.plugins).to.have.property('jshint');
       expect(loader.plugins).to.have.property('xo');
-      expect(loader.plugins).to.have.property('symlink-resolver');
       expect(loader.plugins).to.have.property('custom-cmd');
+      expect(loader.plugins).to.have.property('git-file-downloader');
+      expect(loader.plugins).to.have.property('symlink-resolver');
       expect(loader.plugins).to.have.property('nsp');
       expect(loader.plugins).to.have.property('serverless');
       expect(loader.plugins).to.have.property('mocha');
