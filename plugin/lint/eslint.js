@@ -58,9 +58,8 @@ class Eslint extends Plugin {
       args.push('>');
       args.push(pluginOptions.checkstyleExportPath);
       this.options.redirectedOutput = true;
+      fs.ensureFileSync(pluginOptions.checkstyleExportPath);
     }
-
-    fs.ensureFileSync(pluginOptions.checkstyleExportPath);
 
     return this.execExternalCmd(this.cmd, args, this.options);
   }
