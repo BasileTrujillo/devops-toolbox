@@ -1,15 +1,15 @@
 # DevOps Toolbox
 
-[![build status](https://gitlab.com/BasileTrujillo/devops-toolbox/badges/master/build.svg)](https://gitlab.com/BasileTrujillo/devops-toolbox/commits/master)
+[![build status](https://gitlab.com/L0gIn/devops-toolbox/badges/master/build.svg)](https://gitlab.com/L0gIn/devops-toolbox/commits/master)
 [![NPM Badge](https://img.shields.io/npm/v/devops-toolbox.svg)](https://www.npmjs.com/package/devops-toolbox)
-[![coverage report](https://img.shields.io/badge/link-coverage-green.svg)](https://basiletrujillo.gitlab.io/devops-toolbox/coverage)
-[![JsDoc report](https://img.shields.io/badge/link-jsdoc-green.svg)](https://basiletrujillo.gitlab.io/devops-toolbox/jsdoc)
-[![Plato report](https://img.shields.io/badge/link-plato-green.svg)](https://basiletrujillo.gitlab.io/devops-toolbox/plato)
+[![coverage report](https://img.shields.io/badge/link-coverage-green.svg)](https://l0gin.gitlab.io/devops-toolbox/coverage)
+[![JsDoc report](https://img.shields.io/badge/link-jsdoc-green.svg)](https://l0gin.gitlab.io/devops-toolbox/jsdoc)
+[![Plato report](https://img.shields.io/badge/link-plato-green.svg)](https://l0gin.gitlab.io/devops-toolbox/plato)
 
 
 This project helps Developpers, SysAdmin, DevOps, TechOps, NoOps to build DevOps pipelines for any project in any languages.
 
-Note: The Github project is just a mirror. The upstream of this project hosted on Gitlab at: https://gitlab.com/BasileTrujillo/devops-toolbox
+Note: The Github project is just a mirror. The upstream of this project hosted on Gitlab at: https://gitlab.com/L0gIn/devops-toolbox
 
 ## Install
 
@@ -602,6 +602,7 @@ Options available for `jenkins` function (with their default values):
 * Description: Git File Downloader is a CLI tool to download a raw file from Github or Gitlab.
 * Requirements: Install git-file-downloader NPM Package
 * Supported languages: Shell
+* Project links: [Gitlab Project](https://gitlab.com/L0gIn/git-file-downloader)
 
 Options available (with their default values):
 ```js
