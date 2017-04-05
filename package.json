@@ -1,6 +1,6 @@
 {
   "name": "devops-toolbox",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "description": "DevOps Toolbox [Dotbox]",
   "scripts": {
     "test": "./index.js test",
@@ -14,12 +14,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://gitlab.com/BasileTrujillo/devops-toolbox.git"
+    "url": "https://gitlab.com/L0gIn/devops-toolbox.git"
   },
   "bugs": {
-    "url": "https://gitlab.com/BasileTrujillo/devops-toolbox/issues"
+    "url": "https://gitlab.com/L0gIn/devops-toolbox/issues"
   },
-  "homepage": "https://gitlab.com/BasileTrujillo/devops-toolbox/blob/master/README.md",
+  "homepage": "https://gitlab.com/L0gIn/devops-toolbox/blob/master/README.md",
   "keywords": [
     "cli",
     "node",
