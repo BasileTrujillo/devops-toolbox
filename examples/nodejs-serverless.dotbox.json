@@ -9,9 +9,7 @@
         "blocking": false,
         "eslintrcPath": ".eslintrc.json",
         "targets": [
-          "index.js",
-          "lib",
-          "plugin"
+          "src"
         ]
       },
       {
@@ -21,9 +19,7 @@
         "templatePath": "./node_modules/ink-docstrap/template",
         "readmePath": "./README.md",
         "targets": [
-          "index.js",
-          "lib",
-          "plugin"
+          "src"
         ]
       }
     ]
@@ -51,21 +47,39 @@
       {
         "plugin": "eslint",
         "targets": [
-          "index.js",
-          "plugin",
-          "lib"
+          "src"
         ]
       }
     ]
   },
 
+  "restore-symlink": {
+    "tasks": [
+      {
+        "plugin": "symlink-resolver",
+        "function": "restore",
+        "links": ["config.json"]
+      }
+    ]
+  },
+
+  "offline": {
+    "tasks": [
+      {
+        "plugin": "serverless",
+        "slsFunction": "offline",
+        "removeNpmDevDependencies": false,
+        "restoreNpmDevDependencies": false,
+        "resolveSymlinks": [ "config.json"]
+      }
+    ]
+  },
+
   "deploy": {
-    "async": false,
     "tasks": [
       {
         "plugin": "serverless",
         "slsFunction": "deploy",
-        "stage": "dev",
         "removeNpmDevDependencies": true,
         "restoreNpmDevDependencies": true,
         "resolveSymlinks": [
@@ -76,34 +90,41 @@
     ]
   },
 
-  "deploy-function": {
-    "async": false,
+  "remote-deploy": {
     "tasks": [
       {
         "plugin": "serverless",
+        "slsFunction": "deploy",
+        "removeNpmDevDependencies": true
+      }
+    ]
+  },
+
+  "deploy-function": {
+    "tasks": [
+      {
+        "plugin": "serverless",
+
         "slsFunction": "deploy function",
-        "stage": "dev",
-        "removeNpmDevDependencies": true,
-        "restoreNpmDevDependencies": true,
+        "removeDevDependencies": true,
+        "restoreDevDependencies": true,
         "resolveSymlinks": [
           "config.json"
         ],
         "restoreSymlinks": true,
         "customArgs": [
           "-f",
-          "myFunction"
+          "myfunction"
         ]
       }
     ]
   },
 
   "undeploy": {
-    "async": false,
     "tasks": [
       {
         "plugin": "serverless",
         "slsFunction": "remove",
-        "stage": "dev",
         "removeNpmDevDependencies": false,
         "restoreNpmDevDependencies": false
       }
